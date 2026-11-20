@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Guía práctica multiplataforma de IoT, MQTT, Python, MongoDB, Docker y AWS EC2 Image Builder"><title>Smart Irrigation | Laboratorio IoT &amp; Cloud</title><style>
+:root{--ink:#16332d;--muted:#526861;--accent:#09674e;--line:#d7e4de;--surface:#fff;--bg:#f4f7f5;--code:#132b28;--warn:#81510e}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}a{color:var(--accent)}header{background:#123b34;color:#fff;padding:46px max(24px,calc((100% - 1180px)/2));border-bottom:5px solid #63bd99}header p{max-width:800px;color:#d8e9e0;margin:12px 0}h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1;letter-spacing:-.04em;margin:15px 0}h2{font-size:1.65rem;letter-spacing:-.025em;line-height:1.25;margin-top:0}h3{font-size:1.2rem;margin:1.6em 0 .5em}h4{margin-bottom:.35em}p{margin:.65em 0 1em}.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700}.layout{max-width:1180px;margin:28px auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:26px;padding:0 18px}nav{align-self:start;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;padding:14px;background:white;border:1px solid var(--line);border-radius:10px}nav a{display:block;padding:4px 7px;text-decoration:none;font-size:.9rem;color:var(--ink)}nav a:hover{background:#eaf5ee}main{min-width:0}section{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(17px,3vw,34px);margin:0 0 20px}table{border-collapse:collapse;width:100%;font-size:.91rem}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#edf4f0}.table-scroll{overflow:auto}ol,ul{padding-left:24px}li{margin:.38em 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em;background:#eaf1ee;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}pre{background:var(--code);color:#f1fbf6;padding:16px 20px;overflow:auto;border-radius:8px;font-size:.86rem;line-height:1.55;margin:8px 0 20px;tab-size:2;white-space:pre}pre code{background:none;padding:0;color:inherit;font-size:inherit;overflow-wrap:normal}.codewrap{position:relative}.copy{position:absolute;right:8px;top:7px;background:#f0f8f4;color:#123b34;border:0;padding:5px 8px;border-radius:5px;font-size:.73rem;cursor:pointer}.codewrap pre{padding-top:35px}.note,.warning,.check{border-left:4px solid var(--accent);padding:12px 15px;margin:16px 0;background:#eef7f1}.warning{border-color:#c18a38;background:#fff7e8;color:#65420d}.check{border-color:#347ba0;background:#edf5fb;color:#23485e}.tag{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin:16px 0}.mini{border:1px solid var(--line);padding:14px;border-radius:8px;background:#fafcfb}.mini strong{display:block;font-size:1.08rem}.diagram{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px;border:1px solid var(--line);border-radius:10px;background:#f6faf7}.node{border:1px solid #9dcab7;background:white;border-radius:7px;padding:10px 15px;text-align:center;max-width:100%;width:300px}.arrow{color:var(--accent);font-weight:700}.cluster{border:1px dashed #8cae9f;padding:15px;border-radius:8px;width:100%;display:flex;flex-direction:column;align-items:center;gap:8px}.button{display:inline-block;border-radius:7px;padding:10px 16px;background:#09674e;color:white;text-decoration:none;font-weight:600;border:0;font:inherit;cursor:pointer}.secondary{background:#e5f4ec;color:#16332d}.os-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.os-buttons button{padding:8px 14px;border:1px solid #9ebaae;background:white;color:var(--ink);border-radius:6px;cursor:pointer;font:inherit}.os-buttons button[aria-pressed=true]{background:var(--accent);color:white}.os{border-left:3px solid #b8d2c5;padding-left:14px;margin:18px 0}.os h4{margin-top:0}details{border:1px solid var(--line);border-radius:7px;padding:12px;margin:10px 0}summary{cursor:pointer;font-weight:600;color:var(--accent)}.checklist label{display:block;padding:6px;border-bottom:1px solid var(--line)}.checklist input{margin-right:10px;accent-color:var(--accent)}footer{text-align:center;padding:30px;color:var(--muted);font-size:.9rem}.small{font-size:.88rem;color:var(--muted)}.pill{display:inline-block;border:1px solid #a8c6b8;border-radius:999px;padding:3px 10px;color:#dceee5;font-size:.8rem;margin:4px 4px 0 0}@media(max-width:800px){.layout{display:block}nav{position:static;max-height:none;margin-bottom:20px;columns:2}nav .tag{column-span:all}}@media print{body{background:white}header{background:white;color:#16332d;padding:15px}header p{color:#526861}nav,.copy,.os-buttons,.download{display:none}.layout{display:block;margin:0;padding:0}section{border:0;padding:10px;break-inside:auto}pre{white-space:pre-wrap;color:black;background:#f2f2f2}.os[hidden]{display:block}a{color:black}h2,h3{break-after:avoid}}
+</style></head><body><header><div class="eyebrow">Guía de laboratorio · Ingeniería / IoT / Cloud</div><h1>Smart Irrigation<br>IoT &amp; Cloud</h1><p>De cuatro sensores en un Arduino UNO R4 WiFi a una plataforma de monitoreo, alarmas y datos históricos en AWS. Un recorrido práctico, verificable y multiplataforma, sin necesidad de escribir la aplicación desde cero.</p><span class="pill">macOS Intel / Apple Silicon</span><span class="pill">Windows / PowerShell</span><span class="pill">Linux / Ubuntu</span><span class="pill">Nivel introductorio</span></header><div class="layout"><nav aria-label="Índice"><div class="tag">Contenido · seguir en orden</div><a href="#inicio">00 · Material y alcance</a><a href="#arquitectura">01 · Arquitectura</a><a href="#instalacion">02 · Instalación</a><a href="#local">03 · Docker local</a><a href="#dashboard">04 · Dashboard y pruebas</a><a href="#arduino">05 · Arduino y MQTT</a><a href="#datos">06 · Datos y alarmas</a><a href="#aws">07 · Preparar AWS</a><a href="#ecr">08 · Publicar en ECR</a><a href="#ec2">09 · EC2 manual</a><a href="#builder">10 · EC2 Image Builder</a><a href="#tls">11 · MQTT seguro</a><a href="#operacion">12 · Operación y costos</a><a href="#fallas">13 · Diagnóstico</a><a href="#github">14 · GitHub Pages</a><a href="#codigo">15 · Código fuente</a><a href="#refs">16 · Referencias</a></nav><main>
+<section id="inicio"><div class="tag">00 / Punto de partida</div><h2>Cómo trabajar con esta guía</h2><p>Este laboratorio entrega una aplicación Python de referencia, Dockerfile, Compose, simulador, configuración de Mosquitto y MongoDB, scripts de AWS y un sketch Arduino de telemetría sintética. No necesita instalar Python ni MongoDB en el computador: se ejecutarán dentro de los contenedores.</p><p class="download"><button class="button" id="download">Descargar proyecto completo (.zip)</button> <a class="button secondary" href="irrigation-lab.zip" download>ZIP junto a la guía</a></p><p class="small">El primer botón utiliza el ZIP incorporado en este HTML, incluso sin conexión. El segundo funciona cuando ambos archivos están en el mismo directorio o sitio web. Las imágenes Docker y los servicios AWS sí requieren Internet.</p><div class="grid"><div class="mini"><strong>Parte A · Local</strong>Instalar, construir, simular y verificar.</div><div class="mini"><strong>Parte B · EC2</strong>Publicar la imagen y verificar una instancia.</div><div class="mini"><strong>Parte C · AMI</strong>Automatizar instalación y prueba de integración.</div></div><div class="warning"><strong>Alcance y certeza.</strong> Se comprobaron cinco pruebas unitarias Python del motor de alarmas, sintaxis Python, JavaScript, shell y lectura YAML. No se ejecutó Docker, Arduino ni una cuenta AWS durante la elaboración. Por tanto, es código de referencia revisado, no una aplicación certificada ni una guía validada experimentalmente extremo a extremo. Cada fase incluye un control de aceptación: no avance si falla. Las versiones de imágenes base por familia (MongoDB 8.0, Mosquitto 2, Python 3.12) y paquetes de sistema pueden recibir actualizaciones. Los pasos de consola AWS pueden cambiar de nombre.</div><h3>Seleccione su sistema operativo</h3><p>Esto solo filtra los bloques de instrucciones específicos. Los bloques universales y los comandos de EC2 Linux siempre se muestran.</p><div class="os-buttons" id="os-buttons"><button data-os="all" aria-pressed="true">Mostrar todos</button><button data-os="mac" aria-pressed="false">macOS</button><button data-os="linux" aria-pressed="false">Linux</button><button data-os="win" aria-pressed="false">Windows</button></div><p><strong>Convenciones:</strong> copie un bloque completo cuando se indique, sin copiar un símbolo de prompt. Los comandos con <code>REEMPLAZAR</code>, <code>BUCKET</code> o direcciones de ejemplo deben editarse antes de ejecutar. Abra el terminal en la carpeta donde está <code>Dockerfile</code>. Deténgase ante un error; no ejecute comandos de borrado para intentar repararlo.</p><p>Recomendación local: computador de 64 bits, 8 GB de RAM o más, 10 GB libres como punto de partida, conexión a Internet y permisos para instalar software. Para Windows utilice un sistema compatible con Docker Desktop, virtualización habilitada y WSL2. En Linux se detalla Ubuntu 24.04 LTS; para otras distribuciones utilice la documentación oficial de su gestor de paquetes.</p></section>
+<section id="arquitectura"><div class="tag">01 / Modelo mental</div><h2>Arquitectura del sistema</h2><div class="diagram"><div class="node"><strong>4 sensores</strong><br>Humedad · temperatura · EC · pH</div><div class="arrow">↓ adquisición y calibración</div><div class="node"><strong>Arduino UNO R4 WiFi</strong><br>JSON · MQTT QoS 1</div><div class="arrow">↓ TCP 1883 LAN / TLS 8883 Internet</div><div class="cluster"><span class="tag">Host Docker · PC o EC2</span><div class="node"><strong>1 · Mosquitto</strong><br>Broker MQTT</div><div class="arrow">↓ red mqtt_net</div><div class="node"><strong>2 · Python MQTT Worker</strong><br>Valida, deduplica y evalúa alarmas</div><div class="arrow">↓ red db_net privada</div><div class="node"><strong>3 · MongoDB</strong><br>Documentos y reglas · volumen persistente</div><div class="arrow">↕ consultas</div><div class="node"><strong>4 · Python Flask / Gunicorn</strong><br>API REST · interfaz HTML/JS · puerto 8000</div></div><div class="arrow">↓ HTTP localhost:8080 / túnel SSH en AWS</div><div class="node"><strong>Navegador</strong><br>Monitoreo, histórico, reglas, decisiones</div></div><h3>Qué se construye y qué se reutiliza</h3><div class="table-scroll"><table><thead><tr><th>Concepto</th><th>Función y ejemplo</th></tr></thead><tbody><tr><td>Imagen Docker</td><td>Paquete de software, por ejemplo <code>irrigation:1.0.0</code>. Una imagen sirve para dashboard, worker y simulador, usando comandos distintos.</td></tr><tr><td>Contenedor</td><td>Instancia ejecutable de una imagen. Se inician cuatro servicios permanentes, más el simulador temporal.</td></tr><tr><td>Docker Compose</td><td>Describe servicios, redes, puertos, credenciales y volúmenes en YAML.</td></tr><tr><td>MongoDB</td><td>Base de datos documental NoSQL. No se expone el puerto 27017.</td></tr><tr><td>ECR</td><td>Registro privado AWS de imágenes Docker. No ejecuta aplicaciones.</td></tr><tr><td>EC2 Image Builder</td><td>Construye y prueba una AMI Linux que contiene Docker, configuración e imágenes descargadas.</td></tr><tr><td>AMI / EC2 / EBS</td><td>Plantilla de máquina virtual / máquina que ejecuta contenedores / disco persistente.</td></tr></tbody></table></div><p>MongoDB es representativa de sistemas de documentos reales y permite consultas, índices y persistencia histórica. TinyDB es menor, pero menos adecuada para procesos concurrentes; InfluxDB es otra buena opción especializada en series temporales; DynamoDB es un servicio administrado de AWS y cambia el objetivo docente. NoSQL no es un requisito universal de IoT. Para un nodo con un mensaje cada 30 s: 2.880 documentos/día y 1.051.200/año; cada documento contiene cuatro valores. Con 300 bytes/documento serían 315 MB/año de datos brutos, sin índices, compresión ni overhead. Este proyecto almacena también estados y reglas en cada documento, por lo que el tamaño real probablemente sea mayor. Medirlo antes de dimensionar.</p></section>
+<section id="instalacion"><div class="tag">02 / Preparar la estación</div><h2>Instalar Docker y herramientas</h2><div class="os" data-platform="mac"><h4>macOS · Terminal</h4><ol><li>En  → Acerca de esta Mac, identifique si el procesador es Intel o Apple Silicon.</li><li>Descargue <a href="https://docs.docker.com/desktop/setup/install/mac-install/">Docker Desktop para Mac</a> para esa arquitectura. Abra el DMG, lleve Docker a Aplicaciones y ejecútelo. Acepte los permisos necesarios.</li><li>Espere que Docker Desktop indique que el motor está en ejecución. Abra Terminal desde Aplicaciones → Utilidades.</li></ol><pre><code>docker version
+docker compose version
+docker buildx version
+docker run --rm hello-world</code></pre><p>Las imágenes locales se construyen nativamente ARM64 en Apple Silicon y AMD64 en Intel. Para AWS se construirá explícitamente AMD64.</p></div><div class="os" data-platform="win"><h4>Windows · PowerShell con Docker Desktop (Linux containers)</h4><ol><li>Verifique virtualización en Administrador de tareas → Rendimiento → CPU. Si está deshabilitada, consulte al administrador del equipo.</li><li>En PowerShell como administrador, compruebe WSL. Si no está instalado, utilice el comando indicado y reinicie si Windows lo solicita.</li></ol><pre><code>wsl --status
+wsl --update</code></pre><p>Solo si WSL no está instalado:</p><pre><code>wsl --install</code></pre><ol start="3"><li>Instale <a href="https://docs.docker.com/desktop/setup/install/windows-install/">Docker Desktop para Windows</a>. Seleccione el motor WSL2, no contenedores Windows. Inicie Docker Desktop y espere al motor.</li><li>Abra una nueva ventana PowerShell normal. No se requiere usar una distribución Ubuntu dentro de WSL para los comandos de esta guía.</li></ol><pre><code>docker version
+docker compose version
+docker buildx version
+docker run --rm hello-world</code></pre><p>Si se usa WSL en vez de PowerShell, active la integración en Docker Desktop → Settings → Resources → WSL Integration y utilice las instrucciones Linux/macOS para la sintaxis de shell.</p></div><div class="os" data-platform="linux"><h4>Linux · Ubuntu 24.04 LTS</h4><p>Instale Docker Engine mediante el repositorio oficial. Alternativamente, Docker Desktop para Linux si la distribución y el hardware son compatibles. En una instalación existente no desinstale paquetes a ciegas: consulte primero la guía oficial de <a href="https://docs.docker.com/engine/install/ubuntu/">instalación en Ubuntu</a>. En Ubuntu nuevo:</p><pre><code>sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+. /etc/os-release
+printf 'Types: deb\nURIs: https://download.docker.com/linux/ubuntu\nSuites: %s\nComponents: stable\nArchitectures: %s\nSigned-By: /etc/apt/keyrings/docker.asc\n' "$VERSION_CODENAME" "$(dpkg --print-architecture)" | sudo tee /etc/apt/sources.list.d/docker.sources
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable --now docker
+sudo docker run --rm hello-world</code></pre><p>Para usar los comandos sin <code>sudo</code>, si lo autoriza el administrador:</p><pre><code>sudo usermod -aG docker "$USER"</code></pre><p>Cierre la sesión y vuelva a entrar. El grupo docker equivale prácticamente a privilegios root: no lo otorgue indiscriminadamente en un laboratorio compartido. Si no puede hacerlo, anteponga <code>sudo</code> a los comandos Docker locales (en ECR autentique y ejecute Docker siempre con el mismo usuario). Verifique:</p><pre><code>docker version
+docker compose version
+docker buildx version
+docker run --rm hello-world</code></pre></div><div class="check"><strong>Control 02:</strong> aparece “Hello from Docker!” y Docker Compose muestra una versión. Antes de continuar, revise <a href="https://docs.docker.com/subscription/desktop-license/">las condiciones de licencia de Docker Desktop</a> aplicables a su institución (el uso educativo se contempla en sus condiciones, pero corresponde verificar el contexto concreto).</div><h3>Editor y Arduino IDE</h3><p>Opcional: instale <a href="https://code.visualstudio.com/download">Visual Studio Code</a> y abra la carpeta del proyecto mediante File → Open Folder, no solo un archivo. Para la placa necesita <a href="https://www.arduino.cc/en/software/">Arduino IDE</a>. No instale Docker dentro del Arduino. Git es opcional; GitHub permite cargar archivos desde el navegador.</p></section>
+<section id="local"><div class="tag">03 / Primer sistema funcionando</div><h2>Construir la imagen y levantar los servicios</h2><h3>3.1 Extraer el proyecto</h3><p>Descargue el ZIP de la sección 00. Cree una carpeta llamada <code>irrigation-lab</code>, extraiga todo dentro de ella. El ZIP contiene los archivos directamente, sin una carpeta raíz. No arrastre únicamente los archivos visibles: incluya <code>.env.example</code>, <code>.dockerignore</code> y <code>.gitignore</code>. En macOS Finder se pueden mostrar ocultos con Cmd+Shift+.</p><div class="os" data-platform="mac linux"><h4>macOS / Linux</h4><p>Si descargó a Downloads (o Descargas), ajuste la ruta real. Alternativamente, abra una terminal en la carpeta extraída.</p><pre><code>cd ~/Downloads/irrigation-lab
+ls -la
+cp .env.example .env</code></pre></div><div class="os" data-platform="win"><h4>Windows / PowerShell</h4><pre><code>Set-Location "$HOME\Downloads\irrigation-lab"
+Get-ChildItem -Force
+Copy-Item .env.example .env</code></pre></div><p>Debe encontrar <code>Dockerfile</code>, <code>compose.yaml</code>, <code>app/</code>, <code>mosquitto/</code>, <code>mongo-init/</code> y <code>aws/</code>. Las contraseñas de <code>.env.example</code> son exclusivamente para pruebas locales aisladas. Nunca use esas contraseñas públicamente ni suba <code>.env</code> a GitHub. Mantenga <code>MQTT_USER=worker</code> pues coincide con la ACL.</p><h3>3.2 Aprender Docker construyendo</h3><p>Ejecute desde la carpeta del proyecto en cualquier SO:</p><pre><code>docker build -t irrigation:1.0.0 .
+docker image ls irrigation</code></pre><p><code>FROM</code> utiliza Python 3.12; <code>COPY</code> incorpora el código; <code>RUN</code> instala dependencias y crea un usuario sin privilegios; <code>CMD</code> ejecuta Gunicorn. Se utiliza otra orden para el worker dentro de Compose. El punto final selecciona el directorio como contexto de build. En el primer build se descargan capas y paquetes. El Dockerfile y las dependencias directas están disponibles en la sección 15.</p><h3>3.3 Validar Compose y arrancar</h3><pre><code>docker compose config --quiet
+docker compose up -d --wait --wait-timeout 180
+docker compose ps
+docker compose logs --tail=30 mqtt-worker</code></pre><p>Compose descarga las imágenes públicas de Mosquitto y MongoDB si no existen. <code>-d</code> mantiene servicios en segundo plano. <code>--wait</code> comprueba sus estados y health checks; el worker no tiene health check propio, así que revise su log. En <code>docker compose ps</code> espere cuatro servicios en ejecución, MongoDB, broker y dashboard saludables. El worker deberá escribir “Conectado; suscripción solicitada”. El dashboard puede indicar que todavía no hay mediciones.</p><p>Abra <a href="http://localhost:8080">http://localhost:8080</a> y, en otra pestaña, <a href="http://localhost:8080/health">http://localhost:8080/health</a>. El segundo endpoint debe responder <code>{"ok":true}</code>.</p><div class="check"><strong>Control 03:</strong> cuatro servicios activos y página de salud correcta. Si aparece error de MongoDB o del puerto, vaya a la sección 13. No use <code>docker compose down -v</code> para solucionar fallas: borra los datos.</div><h3>3.4 Qué puertos se habilitaron</h3><div class="table-scroll"><table><thead><tr><th>Servicio</th><th>Contenedor</th><th>Host local</th><th>Internet</th></tr></thead><tbody><tr><td>Mosquitto</td><td>1883 TCP</td><td>127.0.0.1:1883</td><td>No</td></tr><tr><td>Dashboard</td><td>8000 TCP</td><td>127.0.0.1:8080</td><td>No</td></tr><tr><td>MongoDB</td><td>27017 TCP</td><td>Sin publicar</td><td>No</td></tr><tr><td>Worker</td><td>Sin servidor HTTP</td><td>Sin publicar</td><td>No</td></tr></tbody></table></div><p><code>EXPOSE</code> no publica un puerto. Compose traduce host:contenedor. Los nombres <code>mosquitto</code> y <code>mongodb</code> son DNS internos de Compose, no nombres del PC. Hay una red MQTT, otra privada para DB y una para el dashboard. Los volúmenes locales guardan la información al recrear contenedores.</p></section>
+<section id="dashboard"><div class="tag">04 / Validación con datos sintéticos</div><h2>Dashboard, histórico y decisiones</h2><p>No conecte aún el Arduino: primero aislemos los problemas de software. El simulador ejecuta Python en un contenedor temporal de la misma imagen. El mensaje determinista de prueba es humedad 20 %, temperatura 25 °C, EC 2,8 mS/cm y pH 6,7.</p><pre><code>docker compose run --rm simulator python simulator.py --once</code></pre><div class="grid"><div class="mini"><span class="tag">Humedad</span><strong>20.00 %</strong><span style="color:#a42b20">LOW · evaluar riego</span></div><div class="mini"><span class="tag">Temperatura</span><strong>25.00 °C</strong><span style="color:#09674e">NORMAL</span></div><div class="mini"><span class="tag">Conductividad</span><strong>2.80 mS/cm</strong><span style="color:#a42b20">HIGH · revisar salinidad</span></div><div class="mini"><span class="tag">pH agua</span><strong>6.70 pH</strong><span style="color:#09674e">NORMAL</span></div></div><p class="small">Representación de la salida esperada con reglas iniciales intactas. No es una lectura real del Arduino.</p><p>Refresque el dashboard; la página consulta cada cinco segundos. Verifique los estados anteriores y una decisión para humedad y conductividad. El histórico genera cuatro gráficas SVG, con tiempos reales de recepción, límites actuales y hasta 5000 muestras por consulta. La base conserva todos los documentos salvo que se configure retención.</p><h3>4.1 Flujo continuo</h3><pre><code>docker compose run --rm simulator python simulator.py --interval 5</code></pre><p>Deje ese terminal abierto; se generarán valores cada cinco segundos. Para terminarlo utilice Ctrl+C. Las cuatro tarjetas se actualizan y las gráficas muestran el histórico. No ejecute simultáneamente el simulador y el Arduino con el mismo ID de dispositivo, pues mezclaría ambas fuentes.</p><h3>4.2 Cambiar alarmas</h3><ol><li>Detenga el simulador continuo. En el dashboard ajuste humedad mínima de 25 a 10 y mantenga máximo 65 e histéresis 3. Pulse Guardar reglas.</li><li>Vuelva a publicar la muestra determinista. Humedad 20 debe pasar de LOW a NORMAL si el último estado era LOW, o mantenerse NORMAL.</li><li>Cambie el mínimo a 25, publique otra muestra y debe observar LOW.</li><li>Pruebe mínimo mayor al máximo: el backend rechaza la regla y conserva la anterior.</li><li>Deshabilite una variable, publique y compruebe DISABLED. Restituya valores apropiados para el ejercicio.</li></ol><h3>4.3 Deduplicación y persistencia</h3><pre><code>docker compose run --rm simulator python simulator.py --once --boot duplicate-test
+docker compose run --rm simulator python simulator.py --once --boot duplicate-test</code></pre><p>El mismo <code>boot_id</code> y secuencia, siempre cero para <code>--once</code>, identifican ambas publicaciones como una medición. El histórico debe tener solo un documento adicional respecto del conteo anterior (detenga otras fuentes y use idéntica ventana temporal). Repita con otro identificador si ya había usado <code>duplicate-test</code>.</p><pre><code>docker compose down
+docker compose up -d --wait --wait-timeout 180</code></pre><p>Consulte el histórico y las reglas: deben persistir. Si no llegan muestras durante 90 segundos, se indica “Sin datos recientes”, que no es necesariamente una prueba de que el dispositivo esté apagado. No implica la desaparición de las mediciones previas.</p><div class="check"><strong>Control 04:</strong> las cuatro tarjetas, gráficas, modificación de reglas, eventos, deduplicación y persistencia funcionan. Registre capturas y el resultado de cada prueba antes de conectar hardware.</div></section>
+<section id="arduino"><div class="tag">05 / Integración física</div><h2>Arduino UNO R4 WiFi y MQTT</h2><p>Use primero el sketch <code>arduino/uno_r4_demo/uno_r4_demo.ino</code>. Publica valores fijos para comprobar red y protocolo; no mide sensores. La placa UNO R4 WiFi incluye conectividad mediante un módulo ESP32 y usa la librería WiFiS3. No confundir con Arduino UNO R4 Minima.</p><h3>5.1 Permitir acceso desde la red local</h3><p>Arduino y PC deben estar en la misma red privada, sin aislamiento Wi-Fi de clientes. Detenga el simulador. En el archivo <code>.env</code>, cambie <code>MQTT_BIND=127.0.0.1</code> por <code>MQTT_BIND=0.0.0.0</code> (o la IP LAN concreta si Docker en ese SO permite enlazarla). Mantenga el dashboard en localhost. Reinicie el broker:</p><pre><code>docker compose up -d --wait --wait-timeout 180</code></pre><div class="os" data-platform="mac"><h4>macOS · IP de la interfaz Wi-Fi</h4><pre><code>networksetup -listallhardwareports
+ipconfig getifaddr en0</code></pre><p>Si Wi-Fi corresponde a otra interfaz, reemplace <code>en0</code>. Revise Ajustes → Red → Wi-Fi → Detalles. Permita Docker en el firewall del sistema solo en la red confiable si aparece una solicitud.</p></div><div class="os" data-platform="linux"><h4>Linux · IP del equipo</h4><pre><code>ip -4 addr</code></pre><p>Identifique la interfaz Wi-Fi/Ethernet conectada al Arduino. Docker publica puertos usando reglas propias de firewall; no confíe únicamente en UFW para aislar un puerto publicado. Use una red de laboratorio aislada, sin redirección de puertos del router; para restricciones avanzadas revise las reglas DOCKER-USER y la documentación de firewall de Docker.</p></div><div class="os" data-platform="win"><h4>Windows · IP del adaptador físico</h4><pre><code>ipconfig</code></pre><p>Seleccione la IPv4 del adaptador Wi-Fi/Ethernet, no la del adaptador virtual WSL. En Windows Defender Firewall permita TCP 1883 en perfil privado y alcance de subred local si hace falta. No habilite perfiles públicos.</p></div><div class="warning">MQTT en 1883 no cifra usuario, contraseña ni telemetría. Úselo únicamente en red confiable de laboratorio. No abra el puerto 1883 en el router o Security Group de AWS. Si no puede garantizar el aislamiento, omita esta prueba y use TLS.</div><h3>5.2 Cargar sketch</h3><ol><li>Conecte el UNO R4 WiFi por USB. Arduino IDE → Boards Manager → instale Arduino UNO R4 Boards. Library Manager → instale ArduinoMqttClient. WiFiS3 forma parte del soporte de la placa.</li><li>Seleccione Arduino UNO R4 WiFi y el puerto USB correspondiente. Abra el sketch incluido.</li><li>Edite SSID, WIFI_PASSWORD, BROKER (IP del computador), MQTT_PASSWORD (valor de ARDUINO_MQTT_PASSWORD en .env). Use un BOOT_ID distinto para cada reinicio de ensayo, pues la secuencia se reinicia. Esta decisión simplifica el sketch: en una versión real genere un ID de sesión único automáticamente, mediante persistencia o una fuente adecuada de aleatoriedad.</li><li>Pulse Verify y Upload. Abra Serial Monitor a 115200 baud. Espere 30 s. Observe el JSON impreso tras recibir PUBACK del broker y verifique el dashboard.</li></ol><h3>5.3 Contrato JSON y tópicos</h3><pre><code>{
+  "device_id": "uno-r4-001",
+  "boot_id": "lab-001",
+  "seq": 1024,
+  "soil_moisture": 32.4,
+  "temperature": 24.8,
+  "soil_ec": 2.8,
+  "water_ph": 6.7
+}</code></pre><div class="table-scroll"><table><thead><tr><th>Tópico</th><th>Dirección / estado</th></tr></thead><tbody><tr><td>irrigation/uno-r4-001/telemetry</td><td>Arduino → servidor. Implementado.</td></tr><tr><td>irrigation/uno-r4-001/status</td><td>Reservado; broker health check, no estado formal del Arduino.</td></tr><tr><td>irrigation/uno-r4-001/alarms</td><td>Reservado para publicación futura; eventos actuales en DB.</td></tr><tr><td>irrigation/uno-r4-001/commands / config</td><td>Extensión futura; no se envían comandos ni se controlan actuadores.</td></tr></tbody></table></div><p>QoS 1, retain false, intervalo nominal 30 s, ID de cliente único, usuario arduino001, timestamp UTC agregado por el servidor. El dashboard muestra hora local del navegador. La medición de temperatura se interpreta como temperatura del entorno elegido (suelo o ambiente); documente qué mide físicamente el sensor.</p><h3>5.4 Sustituir datos sintéticos por lecturas reales</h3><p>No es correcto asignar pines o ecuaciones universalmente: no se especificaron modelos de sensores. Obtenga datasheets, verifique tensiones (UNO R4 WiFi usa lógica de 5 V), corriente, rango de salida, referencia ADC y aislamiento. Con humedad capacitiva, determine niveles de calibración seco/húmedo; para EC especifique unidad y método, compensación de temperatura y calibración; para pH utilice soluciones buffer y acondicionamiento de alta impedancia adecuados. La humedad expresada en porcentaje de calibración no equivale automáticamente a contenido volumétrico de agua. Muchos módulos EC y pH pueden interferir si comparten el medio y masa; revise instrucciones del fabricante. Reemplace los cuatro valores fijos del sketch manteniendo nombres y unidades. No conecte bombas ni sondas desnudas al GPIO sin la interfaz correspondiente.</p><div class="check"><strong>Control 05:</strong> el monitor serial refleja PUBACK y el log del worker registra el mismo ID de medición. Si falla, confirme IP, puerto, firewall, contraseña y ACL. Al finalizar la prueba LAN, restaure <code>MQTT_BIND=127.0.0.1</code> y recree servicios.</div></section>
+<section id="datos"><div class="tag">06 / Comprender el backend</div><h2>Persistencia NoSQL, API y motor de reglas</h2><p>La versión base adopta dos colecciones en <code>irrigation</code> para reducir inconsistencias: <code>measurements</code> (lecturas, reglas aplicadas, estados y cambios de estado en un único documento atómico) y <code>alarm_rules</code> (configuración vigente por equipo). El estado actual se deriva de la última medición y los eventos se consultan desde documentos históricos. La propuesta original de colecciones independientes alarm_events, alarm_state y devices puede incorporarse al escalar; aquí no se necesitan transacciones multicolección.</p><pre><code>{
+  "_id": "uno-r4-001:lab-001:1024",
+  "device_id": "uno-r4-001",
+  "boot_id": "lab-001",
+  "seq": 1024,
+  "timestamp": "BSON Date (UTC)",
+  "soil_moisture": 20.0,
+  "temperature": 25.0,
+  "soil_ec": 2.8,
+  "water_ph": 6.7,
+  "states": {"soil_moisture":"LOW", "temperature":"NORMAL", "soil_ec":"HIGH", "water_ph":"NORMAL"},
+  "events": ["documentos de cambios de estado"],
+  "rules": {"...":"reglas aplicadas a esta muestra"}
+}</code></pre><p>El índice compuesto device_id + timestamp acelera consultas por nodo e intervalo; el índice único implícito de _id impide duplicados. El usuario de aplicación tiene readWrite solo para la base de datos irrigation. Los scripts de inicialización MongoDB se ejecutan únicamente al crear un volumen vacío: editar las contraseñas en .env después de inicializar no cambia usuarios existentes.</p><h3>6.1 Consultar la base sin exponerla</h3><p>El siguiente comando es idéntico en los tres SO. Abre mongosh en el contenedor y pide la contraseña del usuario iotapp (APP_DB_PASSWORD en .env):</p><pre><code>docker compose exec mongodb mongosh -u iotapp --authenticationDatabase irrigation -p</code></pre><p>Dentro de mongosh, ejecute:</p><pre><code>use irrigation
+show collections
+db.measurements.countDocuments({})
+db.measurements.find({device_id:'uno-r4-001'}).sort({timestamp:-1}).limit(3)
+db.measurements.getIndexes()
+exit</code></pre><p>Opcional, con respaldo previo, puede configurar un índice TTL de 365 días; eliminará automáticamente documentos antiguos, incluyendo sus eventos embebidos. No lo active en el primer laboratorio.</p><pre><code>db.measurements.createIndex({timestamp:1},{expireAfterSeconds:31536000})</code></pre><h3>6.2 Estados e histéresis</h3><div class="table-scroll"><table><thead><tr><th>Variable</th><th>Mín.</th><th>Máx.</th><th>Histéresis</th><th>Decisión simulada</th></tr></thead><tbody><tr><td>Humedad %</td><td>25</td><td>65</td><td>3</td><td>Evaluar inicio/detención de riego</td></tr><tr><td>Temperatura °C</td><td>15</td><td>30</td><td>1</td><td>Revisar frío/estrés térmico</td></tr><tr><td>EC mS/cm</td><td>0,5</td><td>2,5</td><td>0,1</td><td>Revisar nutrientes/salinidad</td></tr><tr><td>pH del agua</td><td>5,5</td><td>7,5</td><td>0,2</td><td>Revisar acidez/alcalinidad</td></tr></tbody></table></div><p>Son umbrales ilustrativos, no recomendaciones agronómicas. Si x &lt; L se activa LOW; si x &gt; U se activa HIGH. Desde LOW se recupera NORMAL cuando x ≥ L+h, y desde HIGH cuando x ≤ U−h, salvo salto directo al umbral opuesto. Se exige L &lt; U y 0 ≤ h ≤ (U−L)/2. Si la regla está deshabilitada, se usa DISABLED. Un evento solo se genera al cambiar de estado. Las reglas nuevas se evalúan con la próxima muestra, no retroactivamente. Las líneas del gráfico son las reglas actuales, no necesariamente las reglas vigentes en cada medición histórica.</p><p>Ejemplo: con L=25 y h=3, la secuencia 30, 24, 25, 27, 28 produce NORMAL, LOW, LOW, LOW, NORMAL. Se usa un solo worker porque ordena las evaluaciones según recepción; varias instancias requerirían coordinación. El worker utiliza sesión MQTT persistente y ACK de QoS 1 después de insertar. En caso de fallo de BD reinicia sin ACK; el broker puede reenviar según el estado de sesión. No garantiza no perder muestras si falla el broker, se agota su cola, se pierde su volumen o el Arduino no reintenta con persistencia. Es un laboratorio, no un sistema de seguridad funcional.</p><h3>6.3 API REST</h3><table><thead><tr><th>Método y ruta</th><th>Qué devuelve</th></tr></thead><tbody><tr><td>GET /health</td><td>Ping MongoDB</td></tr><tr><td>GET /api/latest</td><td>Última muestra y flag stale</td></tr><tr><td>GET /api/history?hours=24</td><td>Hasta 5000 muestras recientes en ventana ≤168 h</td></tr><tr><td>GET /api/alarms/rules</td><td>Reglas actuales</td></tr><tr><td>PUT /api/alarms/rules</td><td>Valida y actualiza cuatro reglas JSON</td></tr><tr><td>GET /api/alarms/history</td><td>Transiciones y decisiones de últimas 100 muestras con eventos</td></tr></tbody></table><p>La interfaz está escrita en HTML/CSS/JavaScript sin CDN ni librerías gráficas externas, y el backend en Python. Se eligió SVG en lugar de Plotly para reducir dependencias. La UI está centrada en un único dispositivo; el worker acepta tópicos de otros IDs cuando se amplía la ACL. El dashboard no tiene autenticación propia: no exponga 8080 públicamente. El túnel SSH restringe el acceso a usuarios autorizados por su clave EC2. Para una aplicación multiusuario real use HTTPS y autenticación/autorización separadas.</p></section>
+<section id="aws"><div class="tag">07 / Preparar el entorno Cloud</div><h2>Cuenta AWS, permisos, red y presupuesto</h2><p>Realice esta parte solo después del control 05 (o después del control 04 si no hay Arduino). Mantenga la región constante. Usaremos <code>us-east-1</code> como ejemplo, no como exigencia; se puede elegir otra región autorizada cambiando todos los comandos y referencias correspondientes.</p><ol><li>Ingrese a la consola AWS con su usuario o rol institucional, no root. Active MFA cuando corresponda. En AWS Academy/Learner Lab, confirme antes que ECR, S3, EC2 Image Builder e IAM estén permitidos. Algunos entornos docentes impiden crear roles o pipelines; el administrador debe habilitarlos. No intente eludir restricciones.</li><li>Configure un presupuesto y alertas de facturación en AWS Budgets. Las alertas no son un límite duro ni detienen automáticamente todos los recursos.</li><li>Identifique una VPC y subred pública con ruta al Internet Gateway. Para una configuración inicial sencilla, use la VPC predeterminada si existe y está autorizada. Habilite IP IPv4 pública para instancias de construcción y operación si no tiene otra salida a Internet. Para una VPC privada hacen falta conectividad saliente/NAT o endpoints adecuados. No use una VPC sin DNS y rutas apropiadas.</li><li>Prepare dos Security Groups. Para construcción, sin reglas entrantes; salida HTTPS y acceso necesario a repositorios Ubuntu, Docker Hub, AWS y DNS (en un lab simple, salida predeterminada). Para operación inicialmente solo TCP 22 con origen My IP (/32); salida predeterminada. No habilite 1883, 8080 ni 27017. Más adelante se podrá habilitar 8883 restringido a la IP pública de salida de los Arduinos.</li><li>Prepare un par de claves EC2 tipo RSA en formato .pem. Descárguelo una sola vez y guárdelo fuera del repositorio. Puede utilizar Session Manager en vez de SSH si su entorno lo admite; la ruta principal de esta guía utiliza SSH porque funciona igualmente en los tres sistemas con OpenSSH.</li></ol><h3>7.1 Roles de instancia (IAM)</h3><p>IAM → Roles → Create role → AWS service → EC2. La relación de confianza debe permitir <code>ec2.amazonaws.com</code>. Crear el rol <code>SmartIrrigationRuntimeRole</code> con <code>AmazonSSMManagedInstanceCore</code>, <code>AmazonEC2ContainerRegistryPullOnly</code> y una política inline que autorice solamente el ZIP de despliegue. Crear también <code>SmartIrrigationImageBuilderRole</code>, con las políticas oficiales <code>EC2InstanceProfileForImageBuilder</code>, <code>EC2InstanceProfileForImageBuilderECRContainerBuilds</code>, <code>AmazonSSMManagedInstanceCore</code>, <code>AmazonEC2ContainerRegistryPullOnly</code> y la misma política inline. Las políticas administradas amplias se usan para simplificar el laboratorio; en producción aplicar permisos mínimos a repositorio y operaciones necesarias.</p><p>Ejemplo de política inline de S3. Reemplace el nombre de bucket antes de guardar; no necesita acceso público. Si el objeto usa una clave KMS propia, harán falta permisos KMS adicionales. Para logs de Image Builder en S3 agregue s3:PutObject solo al prefijo de logs; aquí puede dejar desactivado ese destino de logs.</p><pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": "s3:GetObject",
+    "Resource": "arn:aws:s3:::REEMPLAZAR-BUCKET/releases/irrigation-lab.zip"
+  }]
+}</code></pre><p>Al crear el rol para EC2 desde la consola se genera un instance profile del mismo nombre. La identidad del estudiante que crea servicios necesita permisos de administración de los recursos de laboratorio e <code>iam:PassRole</code> sobre esos roles, además de los permisos para ECR, S3 e Image Builder. Solicite ayuda del administrador si hay AccessDenied.</p><h3>7.2 Paquete de configuración en S3</h3><ol><li>S3 → Create bucket. Elija nombre globalmente único, región us-east-1 y mantenga Block all public access y cifrado por defecto SSE-S3.</li><li>Cree carpeta <code>releases</code>. Suba el ZIP original descargado de esta guía, no un ZIP de su carpeta de trabajo con .env y claves.</li><li>Copie la S3 URI: <code>s3://NOMBRE-REAL/releases/irrigation-lab.zip</code>. Será el mismo ZIP utilizado en EC2 manual y en el pipeline. Para releases futuras use nombres/versiones diferentes y ajuste los permisos y parámetros.</li></ol><div class="check"><strong>Control 07:</strong> región, bucket privado, URI, perfiles IAM y Security Groups definidos. No hay secretos en el ZIP.</div></section>
+<section id="ecr"><div class="tag">08 / Distribución del contenedor</div><h2>Publicar la imagen Python en Amazon ECR</h2><p>Amazon ECR almacena la imagen propia. MongoDB y Mosquitto se descargan desde Docker Hub. No es necesario publicar el código de MongoDB ni construir un contenedor para todo el sistema.</p><h3>8.1 Instalar AWS CLI v2</h3><p>Utilice los instaladores oficiales para su sistema y arquitectura. En macOS el paquete PKG oficial; en Windows el MSI oficial; en Linux el ZIP x86_64 o aarch64 que corresponda. <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">Instrucciones de instalación AWS CLI v2</a>. Reinicie el terminal y compruebe:</p><pre><code>aws --version</code></pre><p>Si dispone de IAM Identity Center, el método recomendado es configurar SSO. Si su laboratorio entrega credenciales temporales, utilice el procedimiento institucional (incluido token de sesión; puede vencer). No cree claves permanentes del usuario root ni copie claves al Dockerfile o repositorio.</p><pre><code>aws configure sso
+aws sso login</code></pre><p>Si creó un perfil con nombre, use <code>aws sso login --profile NOMBRE</code> y seleccione ese perfil para toda la sesión con los comandos siguientes. Para credenciales ya configuradas, omita SSO y compruebe identidad con STS.</p><div class="os" data-platform="mac linux"><h4>macOS / Linux · seleccionar perfil (opcional)</h4><pre><code>export AWS_PROFILE=NOMBRE</code></pre></div><div class="os" data-platform="win"><h4>Windows · seleccionar perfil (opcional)</h4><pre><code>$env:AWS_PROFILE = "NOMBRE"</code></pre></div><pre><code>aws sts get-caller-identity --region us-east-1</code></pre><p>Verifique Account y ARN. No continúe si aparece otra cuenta o si las credenciales expiraron.</p><h3>8.2 Crear repositorio</h3><p>ECR → Private registry → Repositories → Create repository. Nombre <code>smart-irrigation</code>, tag immutability (inmutable), cifrado por defecto. Alternativa CLI (ejecutar solo una vez):</p><pre><code>aws ecr create-repository --repository-name smart-irrigation --image-tag-mutability IMMUTABLE --region us-east-1</code></pre><h3>8.3 Login, build y push</h3><p>Desde la carpeta local del proyecto, con Docker en ejecución. La instancia EC2 elegida es t3.medium (x86_64), por eso se usa explícitamente <code>linux/amd64</code>, incluso desde Mac ARM. Puede tardar más por emulación; si falla en ARM, construya en una estación Linux x86_64 o use un builder remoto autorizado. Use un único tag por versión; no sobrescriba 1.0.0.</p><div class="os" data-platform="mac linux"><h4>macOS / Linux</h4><pre><code>REGION=us-east-1
+ACCOUNT=$(aws sts get-caller-identity --query Account --output text --region "$REGION")
+REGISTRY="$ACCOUNT.dkr.ecr.$REGION.amazonaws.com"
+IMAGE="$REGISTRY/smart-irrigation:1.0.0"
+aws ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$REGISTRY"
+docker buildx build --platform linux/amd64 --tag "$IMAGE" --push .
+printf '%s\n' "$IMAGE"
+docker logout "$REGISTRY"</code></pre></div><div class="os" data-platform="win"><h4>Windows / PowerShell</h4><pre><code>$Region = "us-east-1"
+$Account = (aws sts get-caller-identity --query Account --output text --region $Region).Trim()
+$Registry = "$Account.dkr.ecr.$Region.amazonaws.com"
+$Image = "$Registry/smart-irrigation:1.0.0"
+aws ecr get-login-password --region $Region | docker login --username AWS --password-stdin $Registry
+docker buildx build --platform linux/amd64 --tag $Image --push .
+$Image
+docker logout $Registry</code></pre></div><pre><code>aws ecr describe-images --repository-name smart-irrigation --region us-east-1</code></pre><p>Copie la URI completa devuelta por el bloque anterior, por ejemplo <code>123456789012.dkr.ecr.us-east-1.amazonaws.com/smart-irrigation:1.0.0</code>. Anote también el digest de la imagen en ECR. La autenticación Docker ECR caduca; vuelva a iniciar sesión al repetir un push. Las imágenes oficiales y sus dependencias indirectas aún usan versiones de familia o rangos transitivos: para reproducibilidad bit a bit, fije sus digests y genere un lockfile tras validar el laboratorio.</p><div class="check"><strong>Control 08:</strong> ECR muestra el tag 1.0.0 y su digest; el build finalizó sin errores. Guarde la URI, no el token de login.</div></section>
+<section id="ec2"><div class="tag">09 / Operación manual antes de automatizar</div><h2>Desplegar en una instancia EC2 Ubuntu</h2><p>Esta fase separa problemas AWS de problemas del pipeline. Puede omitir la instancia manual después de comprender sus pasos si los costos o restricciones del curso lo exigen; en ese caso ejecute los pasos de montaje, bootstrap y validación en la instancia lanzada desde la AMI de la sección 10.</p><h3>9.1 Lanzar</h3><ol><li>EC2 → Instances → Launch instances. Nombre <code>smart-irrigation-manual</code>. Ubuntu Server 24.04 LTS oficial de Canonical, x86_64; t3.medium (2 vCPU, 4 GiB). Root EBS gp3 cifrado de 20–30 GiB, delete on termination activado.</li><li>Elija par de claves .pem, VPC/subred pública e IP pública, Security Group de operación (22 desde su IP). Advanced details → IAM instance profile: SmartIrrigationRuntimeRole. Exija IMDSv2 si está disponible. Seleccione Launch.</li><li>En EC2 → Volumes cree un volumen gp3 cifrado de 10 GiB en la misma Availability Zone que la instancia. Adjunte a ella desde Actions → Attach volume. No marque delete on termination para este disco de datos (verifique block device mapping). Anote el Volume ID.</li><li>Espere a que los status checks pasen. Copie el Public IPv4 DNS o Public IPv4 address de la instancia. Puede cambiar al detener/reiniciar; un punto de acceso estable requiere DNS y/o Elastic IP, con costos asociados.</li></ol><h3>9.2 Conectarse desde su computador</h3><p>Use la clave descargada, por ejemplo <code>iot-lab.pem</code>. Sustituya la ruta y el host. Confirme la huella de la clave de host mediante un canal confiable (administrador/consola) antes de aceptarla. No desactive la verificación SSH.</p><div class="os" data-platform="mac linux"><h4>macOS / Linux</h4><pre><code>chmod 400 ~/Downloads/iot-lab.pem
+ssh -i ~/Downloads/iot-lab.pem ubuntu@REEMPLAZAR-HOST</code></pre></div><div class="os" data-platform="win"><h4>Windows / PowerShell</h4><p>Compruebe <code>ssh -V</code>. Si no existe, instale OpenSSH Client en Settings → Optional features. Si SSH rechaza permisos de la clave, aplique los siguientes comandos únicamente a ese archivo (no a toda la carpeta):</p><pre><code>$Key = "$HOME\Downloads\iot-lab.pem"
+icacls $Key /inheritance:r
+icacls $Key /grant:r "${env:USERNAME}:(R)"
+ssh -i $Key ubuntu@REEMPLAZAR-HOST</code></pre></div><p>Los comandos siguientes se ejecutan <strong>dentro de EC2 Ubuntu</strong>, no en macOS, Linux local ni PowerShell. El prompt suele mostrar <code>ubuntu@ip-...</code>.</p><h3>9.3 Montar disco de datos EBS</h3><div class="warning"><strong>ATENCIÓN: riesgo de pérdida de datos.</strong> <code>mkfs</code> formatea un disco. Identifique el volumen nuevo por tamaño, ID/serial y ausencia de sistema de archivos. No formatee el dispositivo raíz ni un EBS que contenga datos. Si no está seguro, consulte al docente.</div><pre><code>lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,SERIAL
+sudo blkid</code></pre><p>En instancias Nitro el volumen suele aparecer como <code>/dev/nvme1n1</code>, pero el nombre no está garantizado. Compare el serial con el Volume ID en EC2, sin el guion cuando corresponda. Solo para volumen NUEVO y VACÍO, sustituya el dispositivo del ejemplo:</p><pre><code>sudo mkfs -t ext4 /dev/nvme1n1</code></pre><p>Para un disco ya formateado, <strong>omita mkfs</strong>. Use su partición o dispositivo real. Cree el punto de montaje y obtenga UUID:</p><pre><code>sudo mkdir -p /srv/iot-data
+sudo blkid /dev/nvme1n1</code></pre><p>Copie el UUID real. Edite <code>/etc/fstab</code> con el comando <code>sudo nano /etc/fstab</code>, agregue al final esta única línea (sustituya UUID; no duplique registros):</p><pre><code>UUID=REEMPLAZAR-UUID /srv/iot-data ext4 defaults,nofail 0 2</code></pre><p>En nano, Ctrl+O, Enter, Ctrl+X. Verifique:</p><pre><code>sudo mount -a
+mountpoint /srv/iot-data
+df -h /srv/iot-data</code></pre><p>Debe mostrar un sistema de archivos separado. El bootstrap exige el montaje; además, instala una dependencia systemd para evitar que Docker arranque con datos en el disco raíz si falta EBS. Un EBS solo puede adjuntarse normalmente a una instancia en su misma AZ y no constituye por sí solo un respaldo.</p><h3>9.4 Instalar Docker y descargar el release (solo instancia manual)</h3><p>La AMI de la sección 10 ya realizará esta etapa. En la instancia manual nueva Ubuntu:</p><pre><code>sudo apt-get update
+sudo apt-get install -y curl unzip ca-certificates
+curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip
+unzip -q /tmp/awscliv2.zip -d /tmp/awscli-install
+sudo /tmp/awscli-install/aws/install
+aws --version
+aws sts get-caller-identity --region us-east-1</code></pre><p>Si AWS CLI v2 ya está instalado, omita su descarga e instalación. STS debe mostrar el rol de instancia (no necesita aws configure ni claves personales dentro de EC2).</p><pre><code>sudo mkdir -p /opt/smart-irrigation
+sudo aws s3 cp s3://REEMPLAZAR-BUCKET/releases/irrigation-lab.zip /tmp/irrigation-lab.zip --region us-east-1
+sudo unzip -q /tmp/irrigation-lab.zip -d /opt/smart-irrigation
+cd /opt/smart-irrigation
+sudo bash aws/install-runtime.sh</code></pre><p>Guarde la URI ECR real (edite la siguiente línea antes de copiarla). El script obtiene autenticación ECR mediante el rol, descarga las tres imágenes y cierra la sesión Docker ECR.</p><pre><code>echo '123456789012.dkr.ecr.us-east-1.amazonaws.com/smart-irrigation:1.0.0' | sudo tee /opt/smart-irrigation/app-image.txt
+sudo bash aws/pull-images.sh</code></pre><h3>9.5 Inicialización y servicio systemd (manual y AMI)</h3><p>Desde la instancia de operación, luego de montar EBS:</p><pre><code>cd /opt/smart-irrigation
+sudo bash aws/bootstrap.sh
+sudo systemctl status irrigation.service --no-pager
+sudo docker compose ps
+sudo docker compose logs --tail=30 mqtt-worker</code></pre><p>Este script genera contraseñas aleatorias hexadecimales únicas en <code>/opt/smart-irrigation/.env</code> (modo 0600), usa los bind mounts EBS en <code>compose.aws.yaml</code>, activa el servicio systemd y arranca los contenedores desde las imágenes locales. No se incorporan credenciales de operación a la AMI. En un ambiente institucional es preferible Secrets Manager o SSM Parameter Store; este laboratorio utiliza generación local para evitar que cada estudiante necesite provisionar esos servicios. Docker inspect puede revelar variables de entorno a usuarios privilegiados. Proteja el host y guarde un respaldo seguro de .env por separado de la base: sin la credencial original no podrá reutilizar el EBS de MongoDB automáticamente. No copie claves al repositorio ni publique logs con datos secretos.</p><h3>9.6 Probar EC2 sin exponer dashboard</h3><p>En la terminal SSH de EC2:</p><pre><code>cd /opt/smart-irrigation
+sudo docker compose run --rm simulator python simulator.py --once
+curl -fsS http://127.0.0.1:8080/health
+curl -fsS http://127.0.0.1:8080/api/latest</code></pre><p>La última consulta debe mostrar la muestra o, si aún no llegó, repítala después de unos segundos. Abra <strong>otro terminal en su computador local</strong> y cree un túnel. Use 8081 local para no interferir con el laboratorio local.</p><div class="os" data-platform="mac linux"><h4>macOS / Linux</h4><pre><code>ssh -N -L 127.0.0.1:8081:127.0.0.1:8080 -i ~/Downloads/iot-lab.pem ubuntu@REEMPLAZAR-HOST</code></pre></div><div class="os" data-platform="win"><h4>Windows / PowerShell</h4><pre><code>ssh -N -L 127.0.0.1:8081:127.0.0.1:8080 -i "$HOME\Downloads\iot-lab.pem" ubuntu@REEMPLAZAR-HOST</code></pre></div><p>Deje ese terminal abierto y acceda a <a href="http://localhost:8081">http://localhost:8081</a>. El navegador ve un puerto local, pero los datos vienen de AWS a través de SSH cifrado. Para terminar pulse Ctrl+C. Si ya está en uso, elija otro puerto local. Opcionalmente puede reemplazar SSH por Session Manager port forwarding con agente/configuración IAM y plugin CLI según la <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html">documentación oficial</a>. El puerto 8080 sigue cerrado en AWS.</p><div class="check"><strong>Control 09:</strong> systemd activo, cuatro contenedores, muestra de EC2 visible mediante el túnel. Reinicie EC2 una vez, verifique nuevo host si cambió, reconecte y confirme persistencia y arranque automático. No termine todavía el volumen si quiere demostrar reutilización.</div></section>
+<section id="builder"><div class="tag">10 / Infraestructura reproducible</div><h2>Construir la AMI con EC2 Image Builder</h2><div class="diagram"><div class="node">Código Python + Dockerfile</div><div class="arrow">↓ docker buildx --push</div><div class="node">ECR · imagen 1.0.0</div><div class="arrow">↓ ECR + ZIP privado S3</div><div class="node">Image Builder · componente AWSTOE</div><div class="arrow">↓ build → validate → snapshot → test</div><div class="node">AMI Ubuntu + Docker + imágenes</div><div class="arrow">↓ Launch instance + EBS + bootstrap</div><div class="node">EC2 operativo · datos y secretos externos a AMI</div></div><p>Image Builder crea una AMI; no recibe un Dockerfile para ejecutar contenedores por sí solo. También admite recipes de contenedores, pero aquí la imagen Python ya se creó en la estación local. La AMI incluye Docker Compose, las imágenes descargadas, configuración y servicio systemd. Las credenciales y datos se crean después del lanzamiento. La prueba funcional se ejecuta sobre una instancia de test desechable, no en producción.</p><h3>10.1 Crear componente personalizado</h3><ol><li>En la misma región, navegue a EC2 Image Builder → Components → Create component.</li><li>Seleccione sistema Linux y tipo Build (el documento incluye build, validate y test), nombre SmartIrrigationAMI, versión 1.0.0.</li><li>En definición del componente, pegue o cargue el contenido completo de <code>aws/image-builder.yaml</code> del ZIP. También está al final de esta guía. Cree el componente.</li><li>El documento declara dos parámetros: DeploymentUri (S3 URI real del ZIP) y AppImage (URI real de ECR con versión). Sustituya los valores de ejemplo al crear la recipe o, antes de crear el componente, edite sus defaults. No use secretos como parámetros.</li></ol><p>AWSTOE ejecuta comandos Linux en las instancias de Image Builder con permisos elevados. Build instala software y descarga las imágenes; validate verifica los artefactos; test arranca los servicios con credenciales locales desechables, publica una muestra MQTT y verifica en la API los estados LOW/HIGH. El script de test elimina únicamente sus volúmenes temporales. La AMI no contiene esa información de prueba. Si falla el smoke test no se debe distribuir como resultado válido.</p><h3>10.2 Crear Image Recipe</h3><ol><li>Image Builder → Image recipes → Create image recipe. Nombre <code>smart-irrigation-recipe</code>, versión 1.0.0.</li><li>Image type AMI. Seleccione una imagen base de Ubuntu Server 24.04 LTS x86_64 de Canonical (puede seleccionar el AMI ID de EC2 si no aparece como imagen administrada; confirme propietario y región). No elija Amazon Linux: el script es específico de Ubuntu.</li><li>Agregue el componente SmartIrrigationAMI 1.0.0. En sus parámetros introduzca DeploymentUri y AppImage. Mantenga habilitadas las pruebas; si la interfaz no muestra parámetros, compruebe los defaults del componente antes de proceder.</li><li>Configure el volumen root con tamaño suficiente, 30 GiB gp3 cifrado como punto de partida, y delete on termination. No añada el EBS de datos a la recipe. Si se requiere un volumen raíz mayor por el tamaño de las imágenes, ajuste la configuración antes de generar.</li></ol><h3>10.3 Infrastructure configuration</h3><ol><li>Image Builder → Infrastructure configurations → Create. Nombre <code>smart-irrigation-build-infra</code>.</li><li>Instance profile: SmartIrrigationImageBuilderRole. Tipo de instancia t3.medium (puede usar t3.large si falla por memoria durante build/test).</li><li>VPC/subred con conectividad saliente a AWS, Ubuntu y Docker Hub. Si usa subred pública, verifique auto-assign public IP en la subred; no basta una ruta a Internet Gateway si la instancia no tiene IP pública. No requiera puertos entrantes. Seleccione el Security Group de construcción.</li><li>Habilite terminate instance on failure para el ejercicio habitual, salvo que el administrador necesite conservar temporalmente una instancia fallida para diagnóstico. Si mantiene instancias, recuerde terminarlas. Puede habilitar logs S3/CloudWatch con los permisos necesarios; si no, revise los logs del pipeline en la consola.</li></ol><h3>10.4 Distribution configuration y pipeline</h3><ol><li>Image Builder → Distribution configurations → Create. Nombre <code>smart-irrigation-distribution</code>. AMI en la región actual y acceso privado. Nombre con marca temporal usando la expresión soportada, por ejemplo <code>Smart-Irrigation-AMI-{{imagebuilder:buildDate}}</code>.</li><li>Image pipelines → Create image pipeline. Nombre <code>smart-irrigation-pipeline</code>, manual (sin schedule periódico), recipe anterior, infrastructure y distribution configuration anteriores. Mantenga pruebas habilitadas. Puede usar el workflow predeterminado y rol vinculado al servicio; no confunda ese rol con el instance profile de las instancias.</li><li>Revise y cree. Actions → Run pipeline. La duración depende de la descarga, disponibilidad y pruebas; no dé por terminada una construcción hasta que su estado sea Available.</li><li>Image Builder → Images → seleccione ejecución y revise etapas, mensajes y salida. Si falla, identifique paso exacto; no ignore un fallo en test. Si necesita corregir componente/recipe cree una nueva versión 1.0.1 (no reescriba una versión publicada).</li><li>En Output resources copie el AMI ID. Compruebe también EC2 → AMIs → Owned by me. No confunda el AMI ID con el digest de ECR.</li></ol><h3>10.5 Lanzar desde la nueva AMI</h3><ol><li>EC2 → AMIs → seleccione la AMI generada → Launch instance from AMI. Configure t3.medium, red, clave, Security Group y SmartIrrigationRuntimeRole como en 9.1.</li><li>Cree/adjunte un EBS de datos nuevo y monte según 9.3. Si migra un EBS anterior, apague primero sus contenedores, desmonte el volumen, desadjunte y adjunte en la misma AZ; conserve el .env original de forma segura. No formatee el volumen existente.</li><li>Conéctese vía SSH. Compruebe <code>docker compose version</code> e <code>sudo docker image ls</code>. No necesita descargar ZIP ni instalar Docker otra vez.</li><li>Ejecute el bootstrap de 9.5 y compruebe el sistema según 9.6. Si reutiliza datos, restaure el .env original en /opt/smart-irrigation antes del bootstrap y verifique APP_IMAGE, COMPOSE_FILE y compatibilidad de MongoDB. Si la versión anterior guardaba certificados, restáurelos de forma segura o emita nuevos.</li></ol><pre><code>cd /opt/smart-irrigation
+sudo bash aws/bootstrap.sh
+sudo docker compose ps
+sudo docker compose run --rm simulator python simulator.py --once</code></pre><p>La instalación de software queda automatizada por Image Builder, y el arranque cotidiano por systemd. El primer arranque aún exige adjuntar/montar EBS y ejecutar bootstrap para que un estudiante pueda entender el almacenamiento. Una evolución posible es automatizar esta fase mediante Launch Templates, user data, volúmenes preprovisionados, Secrets Manager, SSM y CloudFormation/Terraform, sin formatear a ciegas.</p><div class="check"><strong>Control 10:</strong> pipeline Successful/Available, prueba MQTT→MongoDB→API exitosa en el test de Image Builder, nueva instancia lanzada y datos de prueba visibles por túnel. Verifique que no se copiaron contraseñas reales ni históricos en el disco raíz de la AMI.</div></section>
+<section id="tls"><div class="tag">11 / Conectar el Arduino desde Internet</div><h2>MQTT seguro con TLS en el puerto 8883</h2><p>La prueba en EC2 con simulador y dashboard por SSH no requiere puertos públicos adicionales. Para el hardware físico sí se necesita un camino seguro. Esta etapa es avanzada: requiere dominio/DNS bajo su control, una IP pública estable, certificado de confianza y verificación del soporte TLS de la placa. Si no dispone de esos recursos, mantenga la práctica en simulación cloud o utilice una VPN administrada por su institución. No use 1883 público como atajo.</p><h3>11.1 Certificado</h3><ol><li>Asocie una Elastic IP o una IP estable autorizada, con costos asociados, a EC2. Cree un registro DNS A como <code>mqtt.ejemplo.cl</code> hacia esta IP (nombre real bajo su control).</li><li>Obtenga un certificado público con una CA compatible con el firmware de Arduino. Ejemplo con Certbot DNS-01 manual en Ubuntu. No necesita abrir 80 ni 443 para DNS-01; requiere permisos sobre la zona DNS. Cumpla las instrucciones de Certbot y espere propagación antes de confirmar.</li></ol><pre><code>sudo apt-get update
+sudo apt-get install -y certbot
+sudo certbot certonly --manual --preferred-challenges dns -d mqtt.ejemplo.cl</code></pre><p>Reemplace el dominio real. Si usa una CA corporativa, siga su procedimiento. Copie los certificados al directorio que montará el broker; no copie enlaces simbólicos sin su contenido y no haga pública la clave privada. En EC2:</p><pre><code>cd /opt/smart-irrigation
+sudo mkdir -p certs
+sudo cp -L /etc/letsencrypt/live/mqtt.ejemplo.cl/fullchain.pem certs/fullchain.pem
+sudo cp -L /etc/letsencrypt/live/mqtt.ejemplo.cl/privkey.pem certs/privkey.pem
+GID=$(sudo docker run --rm --entrypoint id eclipse-mosquitto:2 -g mosquitto)
+sudo chown root:$GID certs certs/fullchain.pem certs/privkey.pem
+sudo chmod 750 certs
+sudo chmod 644 certs/fullchain.pem
+sudo chmod 640 certs/privkey.pem</code></pre><p>Edite <code>sudo nano /opt/smart-irrigation/.env</code>. Cambie únicamente COMPOSE_FILE por <code>COMPOSE_FILE=compose.yaml:compose.aws.yaml:compose.tls.yaml</code>. Mantenga <code>MQTT_BIND=127.0.0.1</code>: 1883 seguirá enlazado solo a loopback y las conexiones del worker se mantienen internas. El override activa un listener TLS y publica 8883. Reinicie:</p><pre><code>sudo systemctl restart irrigation.service
+sudo docker compose ps
+sudo docker compose logs --tail=30 mosquitto</code></pre><h3>11.2 Security Group y verificación</h3><p>En el Security Group de operación agregue Custom TCP 8883 con origen IP pública de salida del laboratorio/Arduino en CIDR (por ejemplo una sola IP /32 cuando sea estable). No es la IP LAN 192.168.x.x. Mantenga 1883, 8080 y 27017 sin inbound. Si varios lugares necesitan acceso, liste sus redes autorizadas. No abra a todo Internet salvo que exista una justificación y controles reforzados.</p><p>Desde un equipo con OpenSSL, en la red autorizada, valide el handshake y el nombre:</p><pre><code>openssl s_client -connect mqtt.ejemplo.cl:8883 -servername mqtt.ejemplo.cl -verify_hostname mqtt.ejemplo.cl -verify_return_error</code></pre><p>Debe aparecer verificación satisfactoria (Verify return code: 0). Ctrl+C para salir. Si OpenSSL no está disponible en Windows, puede usar WSL con OpenSSL instalado o un cliente MQTT gráfico de confianza que valide TLS, sin aceptar certificados inválidos. La verificación TLS no sustituye una prueba de publicación autenticada; pruebe con un cliente MQTT con TLS, tópico autorizado y usuario/contraseña correctos. No use opciones insecure.</p><p>El certificado de ejemplo DNS-01 manual no se renueva automáticamente sin automatizar el challenge. Controle vencimiento, repita la emisión/renovación según el proveedor, recopie los archivos con permisos correctos y reinicie el broker mediante systemd. Para operación estable configure renovación automatizada con proveedor DNS autorizado y un deploy hook. Revise también rotación de credenciales.</p><h3>11.3 Cambios al sketch</h3><p>Use el hostname DNS que coincide con el certificado, cambie <code>WiFiClient wifi;</code> por <code>WiFiSSLClient wifi;</code> y <code>mqtt.connect(BROKER,1883)</code> por puerto 8883. La contraseña del Arduino es la generada por bootstrap en la variable ARDUINO_MQTT_PASSWORD de .env en EC2. Recupérela de forma privada, no en pantallas compartidas. No la imprima en el serial ni en GitHub. Revise el firmware de conectividad UNO R4 WiFi y el almacén de certificados de confianza de su versión usando el manual oficial de Arduino y las herramientas de actualización correspondientes.</p><div class="warning">La compatibilidad de la cadena de confianza con UNO R4 WiFi varía con el firmware y CA. Esta guía no ha probado el handshake físico con esa placa ni dispone de los modelos de sensores. No deshabilite la validación de certificado o hostname para resolver errores. Si no puede verificar explícitamente la confianza de la CA y la protección contra un certificado incorrecto, no use esta configuración sobre Internet. Valide primero TLS desde un cliente de referencia y luego desde el Arduino.</div><h3>11.4 Resumen de puertos AWS</h3><table><thead><tr><th>TCP</th><th>Uso</th><th>Security Group de operación</th></tr></thead><tbody><tr><td>22</td><td>SSH/túnel</td><td>IP administrativa /32</td></tr><tr><td>8883</td><td>MQTT TLS</td><td>Solo red autorizada, después de configurar TLS</td></tr><tr><td>1883</td><td>MQTT sin TLS</td><td>Cerrado</td></tr><tr><td>8080 / 8000</td><td>Dashboard</td><td>Cerrado; túnel</td></tr><tr><td>27017</td><td>MongoDB</td><td>Cerrado</td></tr><tr><td>80 / 443</td><td>HTTP/HTTPS público</td><td>Cerrado en este diseño</td></tr></tbody></table><p>Extensión futura: Caddy/Nginx o un Application Load Balancer, HTTPS y autenticación/autorización real para dashboard. No abra 443 para esta aplicación sin configurar proxy y control de acceso. Esta guía elige túnel SSH por seguridad y menor complejidad para principiantes.</p></section>
+<section id="operacion"><div class="tag">12 / Operar, actualizar y retirar</div><h2>Persistencia, mantenimiento y costos</h2><h3>12.1 Comandos útiles (local o EC2)</h3><p>En EC2 ejecute desde /opt/smart-irrigation con sudo. En local desde la carpeta del proyecto. Los comandos no eliminan datos salvo que se indique expresamente.</p><pre><code>docker compose ps
+docker compose logs --tail=50
+docker compose logs -f mqtt-worker
+docker compose stop
+docker compose start</code></pre><p>Ctrl+C sale de seguimiento de logs, no detiene servicios. Para aplicar cambios Compose use <code>docker compose up -d --wait --wait-timeout 180</code>. En EC2, gestione el servicio con <code>sudo systemctl restart irrigation.service</code> si corresponde. El servicio se habilita al inicio y verifica montaje EBS. Las imágenes se descargan antes del bootstrap; <code>--pull never</code> evita depender del login ECR al reiniciar.</p><h3>12.2 Respaldo</h3><p>Para un respaldo consistente sencillo en este laboratorio, detenga la escritura y los servicios con <code>sudo systemctl stop irrigation.service</code>. Confirme contenedores detenidos; ejecute <code>sudo sync</code> y cree un snapshot del volumen EBS de datos desde EC2 → Volumes → Actions → Create snapshot. Reinicie el servicio tras iniciarse el snapshot siguiendo las recomendaciones de consistencia de AWS. Proteja y respalde por separado .env y los certificados si existen. Las copias lógicas con mongodump/mongorestore son otra alternativa. Pruebe restauración en volumen independiente; un snapshot sin una prueba de recuperación no garantiza recuperabilidad.</p><p>Para una actualización: cambie código, ejecute pruebas, construya otra versión ECR inmutable, genere nuevo release S3 y receta/componente versionados si cambian. Cree una nueva AMI, pruebe en otra instancia, respalde los datos, detenga la anterior y transfiera disco y credenciales. No cambie la versión principal de MongoDB sin consultar su procedimiento de migración. La solución no tiene alta disponibilidad por ser una sola instancia; las interrupciones y pérdida de información siguen siendo posibles.</p><h3>12.3 Costos y cierre del laboratorio</h3><p>Costos potenciales: EC2 de operación y build/test, EBS y snapshots de AMI, IPv4 pública (incluso asociada según tarifa vigente), ECR, S3, transferencia de datos, logs y NAT si corresponde. No se garantiza elegibilidad de free tier. Revise <a href="https://calculator.aws/">AWS Pricing Calculator</a> y <a href="https://aws.amazon.com/ec2/pricing/">precios EC2</a> para región, tipo de instancia y duración. Una t3.medium/30 GiB root + 10 GiB data es una hipótesis inicial conservadora, no un benchmark.</p><ol><li>Si va a seguir el proyecto, detenga instancia no utilizada y conserve solo los discos necesarios. Detener no borra la instancia ni evita todos los costos de almacenamiento/IP.</li><li>Al cerrar definitivamente, haga respaldo y confirme qué información se puede eliminar. Termine las instancias manual, de operación y de construcción fallidas que sean propias. Verifique en EC2 no dejar recursos huérfanos.</li><li>Elimine EBS innecesarios y snapshots no requeridos. Para AMIs que no usará, primero desregistre la AMI y luego elimine snapshots no compartidos/no necesarios. Verifique identificadores antes de borrar.</li><li>Elimine asociaciones de Elastic IP y libere la dirección si no se necesita. Elimine objetos y bucket S3 propios, versiones si habilitadas, imagen/repositorio ECR si no se reutiliza, pipeline y configuraciones propias. Revise logs y presupuestos.</li><li>No borre roles, redes o Security Groups compartidos ni de la institución. Revise Billing / Cost Explorer para confirmar recursos y cargos posteriores.</li></ol></section>
+<section id="fallas"><div class="tag">13 / Laboratorio robusto</div><h2>Diagnóstico por síntomas</h2><div class="table-scroll"><table><thead><tr><th>Síntoma</th><th>Qué comprobar antes de avanzar</th></tr></thead><tbody><tr><td>Cannot connect to Docker daemon</td><td>Docker Desktop iniciado; Linux <code>sudo systemctl status docker</code>; permisos/grupo docker; Docker context adecuado.</td></tr><tr><td>permission denied docker.sock</td><td>En Linux use sudo o grupo autorizado y reinicie sesión. No cambie permisos del socket a 777.</td></tr><tr><td>no matching manifest / exec format error</td><td>Arquitectura del host y la imagen; para t3 use linux/amd64. MongoDB reciente requiere CPU compatible (AVX en x86_64). En hardware antiguo, use otro equipo compatible.</td></tr><tr><td>port is already allocated</td><td>Revise <code>docker ps</code> y aplicaciones locales. Si cambia puerto host 8080, ajuste URL y túnel. Si cambia 1883 host, ajuste Arduino; la red interna sigue en 1883.</td></tr><tr><td>MongoDB unhealthy</td><td><code>docker compose logs mongodb</code>. Espere inicialización, verifique arquitectura, disco y que APP_DB_PASSWORD concuerda con el usuario ya creado. No borre el volumen para reparar credenciales.</td></tr><tr><td>Mosquitto unhealthy</td><td><code>docker compose logs mosquitto</code>. Verifique .env, ACL, archivos LF y permisos. No edite scripts de shell con CRLF en Windows.</td></tr><tr><td>Dashboard muestra datos vacíos</td><td>Revise <code>/health</code>, <code>docker compose logs mqtt-worker</code>. Confirme que worker se conectó antes de publicar simulador, use otro boot_id y publique de nuevo.</td></tr><tr><td>MQTT not authorized</td><td>Usuario arduino001, contraseña ARDUINO_MQTT_PASSWORD, tópico exacto y ACL. No use el password del worker en Arduino.</td></tr><tr><td>Arduino no alcanza broker</td><td>Misma red, IP LAN correctas, MQTT_BIND, firewall, ausencia de aislamiento Wi-Fi; en EC2 TLS, SG y DNS. Puback no significa base de datos necesariamente almacenada.</td></tr><tr><td>Dashboard no cambia umbrales</td><td>Guardado debe indicar OK. Mínimo &lt; máximo y h ≤ mitad del rango. Publique una nueva muestra: no se reevaluarán las anteriores.</td></tr><tr><td>ECR 403 / token expirado</td><td>STS cuenta/región, permisos de push y nuevo login. Verifique que docker login y buildx se ejecutan con el mismo usuario.</td></tr><tr><td>Image tag already exists</td><td>Repositorio inmutable: aumente versión, no borre 1.0.0 para sobrescribir.</td></tr><tr><td>Image Builder AccessDenied / SSM timeout</td><td>Instance profile, iam:PassRole, S3/GetObject, ECR/Pull, endpoint SSM y conectividad de repositorios. Compruebe Ubuntu 24.04 y región.</td></tr><tr><td>Image Builder smoke test falló</td><td>Examine logs exactos, verifique ECR URI, salud de broker/DB, memoria y espera de suscripción. Corrija componente/recipe y repita versión nueva. No desactive pruebas.</td></tr><tr><td>EC2 .env ausente / montaje no válido</td><td><code>mountpoint /srv/iot-data</code>, <code>sudo journalctl -u irrigation.service -n 80</code>. Restaure .env original si datos existentes. No formatee EBS.</td></tr><tr><td>SSH connection timed out</td><td>Estado EC2, IP pública, ruta/subred, SG 22 desde IP pública actual, firewall corporativo. Alternativa SSM con permisos autorizados.</td></tr><tr><td>TLS handshake error</td><td>Hora/firmware placa, cadena CA, hostname, vencimiento certificado, permisos de clave y Security Group 8883. Nunca deshabilite verificación TLS.</td></tr></tbody></table></div><h3>Checklist de aceptación</h3><p>Marque los controles realmente ejecutados. El avance se guarda localmente en el navegador si este permite localStorage.</p><div id="checklist" class="checklist"></div><p id="progress" class="small"></p><button id="reset" class="button secondary">Restablecer checklist</button></section>
+<section id="github"><div class="tag">14 / Distribución docente</div><h2>Publicar guía y código en GitHub</h2><p>GitHub Pages sirve esta guía estática. No ejecuta Flask, MongoDB ni Mosquitto: el dashboard operativo sigue en Docker local o EC2. Este HTML no contiene dependencias CDN y el ZIP va incorporado para que la guía pueda distribuirse como archivo único.</p><ol><li>En GitHub cree un repositorio nuevo, por ejemplo <code>smart-irrigation-lab</code>. Elija visibilidad conforme a la política del curso. Para publicar Pages en un repositorio público normalmente basta el plan gratuito; revise requisitos de planes/visibilidad privada.</li><li>Renombre este archivo HTML a <code>index.html</code>. En el repositorio → Add file → Upload files, cargue <code>index.html</code> y opcionalmente <code>irrigation-lab.zip</code>. Commit changes. El botón de descarga incorporado no depende de un ZIP adicional.</li><li>Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main → / (root) → Save. Revise que el workflow de Pages termine y abra la URL que muestra GitHub (normalmente <code>https://USUARIO.github.io/smart-irrigation-lab/</code>).</li><li>Si desea además exponer el código de forma editable, extraiga el ZIP original en una subcarpeta llamada <code>project/</code> y suba esa carpeta, no su copia local con credenciales. Deje el dashboard app/index.html en su lugar, distinto del index.html raíz de Pages.</li><li>Pruebe desde una ventana privada: navegación, filtro de SO, copiar comandos y descarga ZIP. Revise no publicar archivos .env, .pem, certificados privados, contraseñas, logs o credenciales. GitHub Pages es publicación web, no un mecanismo de distribución de secretos.</li></ol><p>Referencia: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">Configurar origen de publicación de Pages</a>.</p></section>
+<section id="codigo"><div class="tag">15 / Apéndice reproducible</div><h2>Archivos del proyecto</h2><p>El ZIP incluye todos los archivos de la siguiente lista. No hay que copiarlos manualmente; se muestran para estudiarlos, modificar el código o preparar el componente AWSTOE. No copie markup HTML desde el navegador para recrear archivos: use el ZIP con finales de línea correctos.</p><div id="source-files">
+<details><summary>.dockerignore</summary><pre><code>**
+!requirements.txt
+!app/
+!app/**
+</code></pre></details>
+<details><summary>.env.example</summary><pre><code>APP_IMAGE=irrigation:1.0.0
+MONGO_ADMIN=admin
+MONGO_ADMIN_PASSWORD=localAdminChange123
+APP_DB_USER=iotapp
+APP_DB_PASSWORD=localDbChange123
+MQTT_USER=worker
+MQTT_PASSWORD=localWorkerChange123
+ARDUINO_MQTT_PASSWORD=localArduinoChange123
+MQTT_BIND=127.0.0.1
+MQTT_TLS=0
+</code></pre></details>
+<details><summary>.gitignore</summary><pre><code>.env
+.env.*
+!.env.example
+certs/
+*.pem
+__pycache__/
+*.zip
+</code></pre></details>
+<details><summary>Dockerfile</summary><pre><code>FROM python:3.12-slim
+WORKDIR /app
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt &amp;&amp; useradd --create-home appuser
+COPY --chown=appuser:appuser app/ .
+USER appuser
+EXPOSE 8000
+CMD [&quot;gunicorn&quot;, &quot;--bind&quot;, &quot;0.0.0.0:8000&quot;, &quot;--workers&quot;, &quot;2&quot;, &quot;dashboard:app&quot;]
+</code></pre></details>
+<details><summary>README.md</summary><pre><code># Smart Irrigation IoT · Laboratorio
+
+Guía: abrir `index.html` distribuido junto a este ZIP (o publicado en GitHub Pages).
+
+Inicio local: copiar `.env.example` a `.env`, ejecutar `docker build -t irrigation:1.0.0 .`, `docker compose up -d --wait --wait-timeout 180`, abrir http://localhost:8080 y ejecutar `docker compose run --rm simulator python simulator.py --once`.
+
+No publicar `.env`, claves o certificados. No abrir MQTT sin TLS a Internet. Las mediciones y umbrales son ilustrativos. Código de referencia, no certificado para producción. No se ha ejecutado Docker ni AWS durante la preparación de este material.
+</code></pre></details>
+<details><summary>app/alarm_engine.py</summary><pre><code>import math
+
+DEFAULTS = {
+    &#x27;soil_moisture&#x27;: {&#x27;min&#x27;: 25, &#x27;max&#x27;: 65, &#x27;h&#x27;: 3, &#x27;enabled&#x27;: True},
+    &#x27;temperature&#x27;: {&#x27;min&#x27;: 15, &#x27;max&#x27;: 30, &#x27;h&#x27;: 1, &#x27;enabled&#x27;: True},
+    &#x27;soil_ec&#x27;: {&#x27;min&#x27;: 0.5, &#x27;max&#x27;: 2.5, &#x27;h&#x27;: 0.1, &#x27;enabled&#x27;: True},
+    &#x27;water_ph&#x27;: {&#x27;min&#x27;: 5.5, &#x27;max&#x27;: 7.5, &#x27;h&#x27;: 0.2, &#x27;enabled&#x27;: True},
+}
+RANGES = {&#x27;soil_moisture&#x27;: (0,100), &#x27;temperature&#x27;: (-40,125), &#x27;soil_ec&#x27;: (0,100), &#x27;water_ph&#x27;: (0,14)}
+DECISIONS = {
+ &#x27;soil_moisture&#x27;: (&#x27;Evaluar inicio de riego&#x27;, &#x27;Evaluar detención de riego&#x27;),
+ &#x27;temperature&#x27;: (&#x27;Revisar temperatura baja&#x27;, &#x27;Revisar estrés térmico&#x27;),
+ &#x27;soil_ec&#x27;: (&#x27;Revisar nutrientes y calibración&#x27;, &#x27;Revisar salinidad&#x27;),
+ &#x27;water_ph&#x27;: (&#x27;Revisar acidez&#x27;, &#x27;Revisar alcalinidad&#x27;),
+}
+
+def number(v):
+    if isinstance(v, bool) or not isinstance(v, (int,float)) or not math.isfinite(v):
+        raise ValueError(&#x27;Se requiere número finito&#x27;)
+    return float(v)
+
+def validate_rules(rules):
+    if not isinstance(rules, dict) or set(rules) != set(DEFAULTS):
+        raise ValueError(&#x27;Se requieren cuatro reglas&#x27;)
+    result = {}
+    for k, r in rules.items():
+        if not isinstance(r,dict) or set(r) != {&#x27;min&#x27;,&#x27;max&#x27;,&#x27;h&#x27;,&#x27;enabled&#x27;} or not isinstance(r[&#x27;enabled&#x27;],bool):
+            raise ValueError(&#x27;Regla inválida: &#x27;+k)
+        lo, hi, h = (number(r[n]) for n in (&#x27;min&#x27;,&#x27;max&#x27;,&#x27;h&#x27;))
+        a,b=RANGES[k]
+        if not (a &lt;= lo &lt; hi &lt;= b and 0 &lt;= h &lt;= (hi-lo)/2):
+            raise ValueError(&#x27;Límites o histéresis inválidos: &#x27;+k)
+        result[k] = {&#x27;min&#x27;:lo,&#x27;max&#x27;:hi,&#x27;h&#x27;:h,&#x27;enabled&#x27;:r[&#x27;enabled&#x27;]}
+    return result
+
+def state(value, rule, previous=&#x27;NORMAL&#x27;):
+    if not rule[&#x27;enabled&#x27;]: return &#x27;DISABLED&#x27;
+    lo,hi,h=rule[&#x27;min&#x27;],rule[&#x27;max&#x27;],rule[&#x27;h&#x27;]
+    if value &lt; lo: return &#x27;LOW&#x27;
+    if value &gt; hi: return &#x27;HIGH&#x27;
+    if previous == &#x27;LOW&#x27; and value &lt; lo+h: return &#x27;LOW&#x27;
+    if previous == &#x27;HIGH&#x27; and value &gt; hi-h: return &#x27;HIGH&#x27;
+    return &#x27;NORMAL&#x27;
+
+def evaluate(values, rules, previous):
+    states, events = {}, []
+    for k,v in values.items():
+        before=previous.get(k,&#x27;NORMAL&#x27;)
+        after=state(v,rules[k],before)
+        states[k]=after
+        if after != before:
+            decision = DECISIONS[k][0 if after==&#x27;LOW&#x27; else 1] if after in (&#x27;LOW&#x27;,&#x27;HIGH&#x27;) else (&#x27;Recuperación del rango&#x27; if after==&#x27;NORMAL&#x27; else &#x27;Alarma deshabilitada&#x27;)
+            events.append({&#x27;sensor&#x27;:k,&#x27;from&#x27;:before,&#x27;to&#x27;:after,&#x27;value&#x27;:v,&#x27;decision&#x27;:decision})
+    return states,events
+</code></pre></details>
+<details><summary>app/dashboard.py</summary><pre><code>from datetime import datetime,timedelta,timezone
+from flask import Flask,jsonify,request,send_from_directory
+from pymongo.errors import PyMongoError
+from database import db,rules_for
+from alarm_engine import validate_rules
+app=Flask(__name__)
+app.config[&#x27;MAX_CONTENT_LENGTH&#x27;]=16384
+DEVICE=&#x27;uno-r4-001&#x27;
+
+def serialize(row):
+    if not row: return None
+    return {**row,&#x27;timestamp&#x27;:row[&#x27;timestamp&#x27;].isoformat()}
+@app.errorhandler(PyMongoError)
+def database_error(e): return jsonify(error=&#x27;Base de datos no disponible&#x27;),503
+@app.get(&#x27;/&#x27;)
+def index(): return send_from_directory(&#x27;/app&#x27;,&#x27;index.html&#x27;)
+@app.get(&#x27;/health&#x27;)
+def health():
+    db.command(&#x27;ping&#x27;); return jsonify(ok=True)
+@app.get(&#x27;/api/latest&#x27;)
+def latest():
+    row=db.measurements.find_one({&#x27;device_id&#x27;:DEVICE},sort=[(&#x27;timestamp&#x27;,-1),(&#x27;_id&#x27;,-1)])
+    return jsonify(measurement=serialize(row),stale=not row or (datetime.now(timezone.utc)-row[&#x27;timestamp&#x27;]).total_seconds()&gt;90)
+@app.get(&#x27;/api/history&#x27;)
+def history():
+    try: hours=float(request.args.get(&#x27;hours&#x27;,24)); assert 0&lt;hours&lt;=168
+    except (ValueError,AssertionError): return jsonify(error=&#x27;hours debe estar entre 0 y 168&#x27;),400
+    rows=list(db.measurements.find({&#x27;device_id&#x27;:DEVICE,&#x27;timestamp&#x27;:{&#x27;$gte&#x27;:datetime.now(timezone.utc)-timedelta(hours=hours)}}, {&#x27;rules&#x27;:0}).sort([(&#x27;timestamp&#x27;,-1),(&#x27;_id&#x27;,-1)]).limit(5001))
+    return jsonify(rows=[serialize(r) for r in reversed(rows[:5000])],truncated=len(rows)&gt;5000)
+@app.get(&#x27;/api/alarms/rules&#x27;)
+def get_rules(): return jsonify(rules_for(DEVICE))
+@app.put(&#x27;/api/alarms/rules&#x27;)
+def put_rules():
+    if not request.is_json: return jsonify(error=&#x27;JSON requerido&#x27;),415
+    try: rules=validate_rules(request.get_json())
+    except (ValueError,TypeError,OverflowError): return jsonify(error=&#x27;Reglas inválidas. Revise límites e histéresis.&#x27;),400
+    db.alarm_rules.replace_one({&#x27;_id&#x27;:DEVICE},{&#x27;_id&#x27;:DEVICE,&#x27;rules&#x27;:rules},upsert=True)
+    return jsonify(rules)
+@app.get(&#x27;/api/alarms/history&#x27;)
+def events():
+    rows=db.measurements.find({&#x27;device_id&#x27;:DEVICE,&#x27;events.0&#x27;:{&#x27;$exists&#x27;:True}},{&#x27;timestamp&#x27;:1,&#x27;events&#x27;:1}).sort([(&#x27;timestamp&#x27;,-1),(&#x27;_id&#x27;,-1)]).limit(100)
+    return jsonify([{&#x27;timestamp&#x27;:r[&#x27;timestamp&#x27;].isoformat(),**e} for r in rows for e in r[&#x27;events&#x27;]])
+</code></pre></details>
+<details><summary>app/database.py</summary><pre><code>import os
+from pymongo import MongoClient
+from alarm_engine import DEFAULTS
+client = MongoClient(&#x27;mongodb&#x27;,27017,username=os.environ[&#x27;APP_DB_USER&#x27;],password=os.environ[&#x27;APP_DB_PASSWORD&#x27;],authSource=&#x27;irrigation&#x27;,tz_aware=True,serverSelectionTimeoutMS=5000)
+db=client.irrigation
+
+def rules_for(device):
+    row=db.alarm_rules.find_one({&#x27;_id&#x27;:device})
+    return row[&#x27;rules&#x27;] if row else DEFAULTS
+</code></pre></details>
+<details><summary>app/index.html</summary><pre><code>&lt;!doctype html&gt;&lt;html lang=&quot;es&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;title&gt;Smart Irrigation&lt;/title&gt;&lt;style&gt;
+:root{font-family:system-ui,sans-serif;color:#19352e;background:#eff5f1}body{max-width:1100px;margin:auto;padding:24px}header,section,.tile{background:white;border:1px solid #d5e3db;border-radius:12px;padding:20px;margin:12px 0}h1,h2{margin:0 0 12px}small{color:#526b60}.cards,.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}.tile{margin:0}.value{font-size:2em;font-weight:700}.LOW,.HIGH{color:#b42318}.NORMAL{color:#13784b}button,select,input{font:inherit;padding:8px;border:1px solid #b9ccc1;border-radius:5px}button{background:#12674e;color:white;cursor:pointer}table{width:100%;border-collapse:collapse}td,th{padding:8px;text-align:left;border-bottom:1px solid #ddd}input[type=number]{width:80px}.scroll{overflow:auto}svg{width:100%;height:auto}.error{color:#b42318}&lt;/style&gt;&lt;header&gt;&lt;small&gt;IoT / TELEMETRÍA / UNO R4 WIFI&lt;/small&gt;&lt;h1&gt;Smart Irrigation&lt;/h1&gt;&lt;div id=&quot;status&quot;&gt;Conectando…&lt;/div&gt;&lt;/header&gt;&lt;div id=&quot;cards&quot; class=&quot;cards&quot;&gt;&lt;/div&gt;&lt;section&gt;&lt;h2&gt;Histórico&lt;/h2&gt;&lt;label&gt;Ventana &lt;select id=&quot;hours&quot;&gt;&lt;option value=&quot;1&quot;&gt;1 hora&lt;/option&gt;&lt;option value=&quot;24&quot; selected&gt;24 horas&lt;/option&gt;&lt;option value=&quot;168&quot;&gt;7 días&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;p id=&quot;histnote&quot;&gt;&lt;/p&gt;&lt;div id=&quot;charts&quot; class=&quot;charts&quot;&gt;&lt;/div&gt;&lt;/section&gt;&lt;section&gt;&lt;h2&gt;Configurar alarmas&lt;/h2&gt;&lt;p&gt;Los límites iniciales son ejemplos educativos. Los cambios se evalúan con la próxima muestra.&lt;/p&gt;&lt;form id=&quot;rules&quot;&gt;&lt;div class=&quot;scroll&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Mín.&lt;/th&gt;&lt;th&gt;Máx.&lt;/th&gt;&lt;th&gt;Histéresis&lt;/th&gt;&lt;th&gt;Activa&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;rulebody&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;&lt;button&gt;Guardar reglas&lt;/button&gt; &lt;span id=&quot;rulemsg&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;/form&gt;&lt;/section&gt;&lt;section&gt;&lt;h2&gt;Registro de decisiones simuladas&lt;/h2&gt;&lt;div class=&quot;scroll&quot;&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Recepción&lt;/th&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Cambio&lt;/th&gt;&lt;th&gt;Decisión&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;events&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;&lt;p&gt;&lt;small&gt;No controla actuadores. Datos UTC, fechas mostradas en hora local del navegador. Acceso previsto exclusivamente por localhost o túnel SSH.&lt;/small&gt;&lt;/p&gt;&lt;script&gt;
+const names={soil_moisture:[&#x27;Humedad&#x27;,&#x27;%&#x27;],temperature:[&#x27;Temperatura&#x27;,&#x27;°C&#x27;],soil_ec:[&#x27;Conductividad&#x27;,&#x27;mS/cm&#x27;],water_ph:[&#x27;pH del agua&#x27;,&#x27;pH&#x27;]};const keys=Object.keys(names);const $=id=&gt;document.getElementById(id);let rules={};async function api(url,opts){let r=await fetch(url,opts);let d=await r.json();if(!r.ok)throw Error(d.error||r.status);return d}function time(t){return new Date(t).toLocaleString()}
+async function loadRules(){rules=await api(&#x27;/api/alarms/rules&#x27;);$(&#x27;rulebody&#x27;).innerHTML=keys.map(k=&gt;`&lt;tr&gt;&lt;td&gt;${names[k][0]}&lt;/td&gt;${[&#x27;min&#x27;,&#x27;max&#x27;,&#x27;h&#x27;].map(n=&gt;`&lt;td&gt;&lt;input required type=&quot;number&quot; step=&quot;any&quot; id=&quot;${k}_${n}&quot; value=&quot;${rules[k][n]}&quot;&gt;&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td&gt;&lt;input type=&quot;checkbox&quot; id=&quot;${k}_enabled&quot; ${rules[k].enabled?&#x27;checked&#x27;:&#x27;&#x27;}&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}
+$(&#x27;rules&#x27;).onsubmit=async e=&gt;{e.preventDefault();let v={};for(let k of keys){v[k]={};for(let n of [&#x27;min&#x27;,&#x27;max&#x27;,&#x27;h&#x27;])v[k][n]=Number($(`${k}_${n}`).value);v[k].enabled=$(`${k}_enabled`).checked}try{rules=await api(&#x27;/api/alarms/rules&#x27;,{method:&#x27;PUT&#x27;,headers:{&#x27;Content-Type&#x27;:&#x27;application/json&#x27;},body:JSON.stringify(v)});$(&#x27;rulemsg&#x27;).textContent=&#x27;Guardado. Esperando próxima muestra.&#x27;}catch(e){$(&#x27;rulemsg&#x27;).textContent=e.message}};
+function graph(k,rows){if(!rows.length)return &#x27;&lt;p&gt;Sin muestras&lt;/p&gt;&#x27;;let vs=rows.map(r=&gt;r[k]),ts=rows.map(r=&gt;Date.parse(r.timestamp)),r=rules[k],lo=Math.min(...vs,...(r?.enabled?[r.min]:[])),hi=Math.max(...vs,...(r?.enabled?[r.max]:[]));if(lo===hi){lo--;hi++}let x=t=&gt;40+250*(t-ts[0])/Math.max(ts.at(-1)-ts[0],1),y=v=&gt;115-95*(v-lo)/(hi-lo);return `&lt;svg viewBox=&quot;0 0 310 145&quot; role=&quot;img&quot; aria-label=&quot;Serie histórica&quot;&gt;&lt;path d=&quot;M40 15 V115 H290&quot; stroke=&quot;#aaa&quot; fill=&quot;none&quot;/&gt;&lt;text x=&quot;2&quot; y=&quot;20&quot; font-size=&quot;10&quot;&gt;${hi.toFixed(1)}&lt;/text&gt;&lt;text x=&quot;2&quot; y=&quot;115&quot; font-size=&quot;10&quot;&gt;${lo.toFixed(1)}&lt;/text&gt;${r?.enabled?[r.min,r.max].map(v=&gt;`&lt;path d=&quot;M40 ${y(v)} H290&quot; stroke=&quot;#b45309&quot; stroke-dasharray=&quot;4 4&quot;/&gt;`).join(&#x27;&#x27;):&#x27;&#x27;}&lt;polyline fill=&quot;none&quot; stroke=&quot;#168063&quot; stroke-width=&quot;2&quot; points=&quot;${vs.map((v,i)=&gt;`${x(ts[i])},${y(v)}`).join(&#x27; &#x27;)}&quot;/&gt;${vs.length===1?`&lt;circle cx=&quot;40&quot; cy=&quot;${y(vs[0])}&quot; r=&quot;3&quot; fill=&quot;#168063&quot;/&gt;`:&#x27;&#x27;}&lt;text x=&quot;40&quot; y=&quot;138&quot; font-size=&quot;9&quot;&gt;${new Date(ts[0]).toLocaleTimeString()}&lt;/text&gt;&lt;text x=&quot;290&quot; y=&quot;138&quot; font-size=&quot;9&quot; text-anchor=&quot;end&quot;&gt;${new Date(ts.at(-1)).toLocaleTimeString()}&lt;/text&gt;&lt;/svg&gt;`}
+let busy=false;async function refresh(){if(busy)return;busy=true;try{let [a,h,e]=await Promise.all([api(&#x27;/api/latest&#x27;),api(&#x27;/api/history?hours=&#x27;+$(&#x27;hours&#x27;).value),api(&#x27;/api/alarms/history&#x27;)]);let m=a.measurement;$(&#x27;status&#x27;).textContent=m?(a.stale?&#x27;Sin datos recientes · &#x27;:&#x27;Recibiendo datos · &#x27;)+time(m.timestamp):&#x27;Esperando primera muestra&#x27;;$(&#x27;cards&#x27;).innerHTML=keys.map(k=&gt;`&lt;article class=&quot;tile&quot;&gt;&lt;small&gt;${names[k][0]}&lt;/small&gt;&lt;div class=&quot;value&quot;&gt;${m?m[k].toFixed(2):&#x27;–&#x27;} &lt;small&gt;${names[k][1]}&lt;/small&gt;&lt;/div&gt;&lt;strong class=&quot;${m?.states[k]||&#x27;&#x27;}&quot;&gt;${m?.states[k]||&#x27;SIN DATOS&#x27;}&lt;/strong&gt;&lt;/article&gt;`).join(&#x27;&#x27;);$(&#x27;histnote&#x27;).textContent=h.rows.length+&#x27; muestras&#x27;+(h.truncated?&#x27; (últimas 5000; ventana truncada)&#x27;:&#x27;&#x27;)+&#x27; · líneas discontinuas: límites actuales&#x27;;$(&#x27;charts&#x27;).innerHTML=keys.map(k=&gt;`&lt;div&gt;&lt;strong&gt;${names[k].join(&#x27; · &#x27;)}&lt;/strong&gt;${graph(k,h.rows)}&lt;/div&gt;`).join(&#x27;&#x27;);$(&#x27;events&#x27;).replaceChildren(...e.map(v=&gt;{let tr=document.createElement(&#x27;tr&#x27;);for(let s of [time(v.timestamp),names[v.sensor][0],v.from+&#x27; → &#x27;+v.to,v.decision]){let td=document.createElement(&#x27;td&#x27;);td.textContent=s;tr.append(td)}return tr}))}catch(e){$(&#x27;status&#x27;).textContent=&#x27;Error: &#x27;+e.message}finally{busy=false}};
+loadRules().catch(e=&gt;$(&#x27;rulemsg&#x27;).textContent=e.message).finally(refresh);$(&#x27;hours&#x27;).onchange=refresh;setInterval(refresh,5000);
+&lt;/script&gt;&lt;/html&gt;
+</code></pre></details>
+<details><summary>app/mqtt_worker.py</summary><pre><code>import os,json,logging,re
+from datetime import datetime,timezone
+import paho.mqtt.client as mqtt
+from pymongo.errors import DuplicateKeyError
+from alarm_engine import RANGES,number,evaluate
+from database import db,rules_for
+logging.basicConfig(level=logging.INFO,format=&#x27;%(asctime)s %(levelname)s %(message)s&#x27;)
+
+def parse(topic,payload):
+    p=topic.split(&#x27;/&#x27;)
+    if len(p)!=3 or p[0]!=&#x27;irrigation&#x27; or p[2]!=&#x27;telemetry&#x27; or not re.fullmatch(r&#x27;[A-Za-z0-9_-]{1,64}&#x27;,p[1]): raise ValueError(&#x27;topic&#x27;)
+    if len(payload)&gt;4096: raise ValueError(&#x27;payload demasiado grande&#x27;)
+    d=json.loads(payload)
+    if not isinstance(d,dict) or d.get(&#x27;device_id&#x27;)!=p[1]: raise ValueError(&#x27;device_id&#x27;)
+    boot=d.get(&#x27;boot_id&#x27;); seq=d.get(&#x27;seq&#x27;)
+    if not isinstance(boot,str) or not re.fullmatch(r&#x27;[A-Za-z0-9_-]{1,64}&#x27;,boot) or type(seq) is not int or not 0&lt;=seq&lt;2**63: raise ValueError(&#x27;identificador&#x27;)
+    vals={}
+    for k,(lo,hi) in RANGES.items():
+        v=number(d.get(k))
+        if not lo&lt;=v&lt;=hi: raise ValueError(k)
+        vals[k]=v
+    return p[1],boot,seq,vals
+
+def on_connect(c,u,f,rc,props):
+    if rc==0:
+        c.subscribe(&#x27;irrigation/+/telemetry&#x27;,qos=1)
+        logging.info(&#x27;Conectado; suscripción solicitada&#x27;)
+    else: logging.error(&#x27;MQTT: %s&#x27;,rc)
+
+def on_message(c,u,m):
+    try:
+        device,boot,seq,vals=parse(m.topic,m.payload)
+    except (ValueError,TypeError,OverflowError):
+        logging.warning(&#x27;Mensaje inválido descartado&#x27;)
+        if m.qos: c.ack(m.mid,m.qos)
+        return
+    key=f&#x27;{device}:{boot}:{seq}&#x27;
+    try:
+        if not db.measurements.find_one({&#x27;_id&#x27;:key},{&#x27;_id&#x27;:1}):
+            prev=db.measurements.find_one({&#x27;device_id&#x27;:device},sort=[(&#x27;timestamp&#x27;,-1),(&#x27;_id&#x27;,-1)]) or {}
+            rules=rules_for(device)
+            states,events=evaluate(vals,rules,prev.get(&#x27;states&#x27;,{}))
+            db.measurements.insert_one({&#x27;_id&#x27;:key,&#x27;device_id&#x27;:device,&#x27;boot_id&#x27;:boot,&#x27;seq&#x27;:seq,&#x27;timestamp&#x27;:datetime.now(timezone.utc),**vals,&#x27;states&#x27;:states,&#x27;events&#x27;:events,&#x27;rules&#x27;:rules})
+            logging.info(&#x27;Guardado %s %s&#x27;,key,states)
+    except DuplicateKeyError: pass
+    except Exception:
+        logging.exception(&#x27;Fallo de persistencia; reiniciar sin ACK&#x27;)
+        # El proceso sale; Compose lo reinicia. Sesión MQTT persistente.
+        os._exit(1)
+    if m.qos: c.ack(m.mid,m.qos)
+
+if __name__==&#x27;__main__&#x27;:
+    c=mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,client_id=&#x27;irrigation-worker&#x27;,clean_session=False,manual_ack=True)
+    c.username_pw_set(os.environ[&#x27;MQTT_USER&#x27;],os.environ[&#x27;MQTT_PASSWORD&#x27;])
+    c.on_connect=on_connect; c.on_message=on_message
+    c.reconnect_delay_set(1,30)
+    c.connect_async(&#x27;mosquitto&#x27;,1883,60)
+    c.loop_forever(retry_first_connection=True)
+</code></pre></details>
+<details><summary>app/simulator.py</summary><pre><code>import argparse,os,json,random,time,uuid,threading
+import paho.mqtt.client as mqtt
+p=argparse.ArgumentParser(); p.add_argument(&#x27;--once&#x27;,action=&#x27;store_true&#x27;); p.add_argument(&#x27;--interval&#x27;,type=float,default=5); p.add_argument(&#x27;--boot&#x27;,default=None); args=p.parse_args()
+if args.interval&lt;=0: p.error(&#x27;interval must be positive&#x27;)
+boot=args.boot or uuid.uuid4().hex
+ready=threading.Event()
+c=mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,client_id=&#x27;sim-&#x27;+uuid.uuid4().hex[:12])
+c.username_pw_set(&#x27;arduino001&#x27;,os.environ[&#x27;ARDUINO_MQTT_PASSWORD&#x27;])
+def connected(c,u,f,rc,props):
+    if rc==0: ready.set()
+    else: print(&#x27;MQTT rechazado:&#x27;,rc)
+c.on_connect=connected
+c.connect(&#x27;mosquitto&#x27;,1883,60); c.loop_start()
+try:
+    if not ready.wait(10): raise RuntimeError(&#x27;Sin conexión MQTT&#x27;)
+    seq=0
+    while True:
+        vals=[20,25,2.8,6.7] if args.once else [round(random.uniform(a,b),2) for a,b in [(15,80),(10,40),(.2,4),(4,9)]]
+        d=dict(device_id=&#x27;uno-r4-001&#x27;,boot_id=boot,seq=seq,**dict(zip([&#x27;soil_moisture&#x27;,&#x27;temperature&#x27;,&#x27;soil_ec&#x27;,&#x27;water_ph&#x27;],vals)))
+        info=c.publish(&#x27;irrigation/uno-r4-001/telemetry&#x27;,json.dumps(d),qos=1)
+        info.wait_for_publish(timeout=10)
+        if not info.is_published(): raise RuntimeError(&#x27;Sin PUBACK&#x27;)
+        print(d,flush=True)
+        if args.once: break
+        seq+=1; time.sleep(args.interval)
+finally:
+    c.disconnect(); c.loop_stop()
+</code></pre></details>
+<details><summary>arduino/uno_r4_demo/uno_r4_demo.ino</summary><pre><code>#include &lt;WiFiS3.h&gt;
+#include &lt;ArduinoMqttClient.h&gt;
+// Datos sintéticos: no conecta sensores ni bombas.
+const char SSID[] = &quot;REEMPLAZAR&quot;;
+const char WIFI_PASSWORD[] = &quot;REEMPLAZAR&quot;;
+const char BROKER[] = &quot;192.168.1.100&quot;; // IP LAN del PC, no localhost
+const char MQTT_PASSWORD[] = &quot;localArduinoChange123&quot;;
+const char BOOT_ID[] = &quot;lab-001&quot;; // Cambiar por un identificador nuevo en cada arranque de prueba
+const char TOPIC[] = &quot;irrigation/uno-r4-001/telemetry&quot;;
+WiFiClient wifi;
+MqttClient mqtt(wifi);
+unsigned long seq = 0, last = 0;
+void setup(){
+  Serial.begin(115200);
+  mqtt.setId(&quot;uno-r4-001&quot;);
+  mqtt.setUsernamePassword(&quot;arduino001&quot;, MQTT_PASSWORD);
+}
+void loop(){
+  if(WiFi.status()!=WL_CONNECTED){
+    WiFi.begin(SSID,WIFI_PASSWORD); delay(5000); return;
+  }
+  if(!mqtt.connected()){
+    if(!mqtt.connect(BROKER,1883)){Serial.println(mqtt.connectError());delay(3000);return;}
+  }
+  mqtt.poll();
+  if(millis()-last&lt;30000UL) return;
+  last=millis();
+  String payload=String(&quot;{\&quot;device_id\&quot;:\&quot;uno-r4-001\&quot;,\&quot;boot_id\&quot;:\&quot;&quot;)+BOOT_ID+&quot;\&quot;,\&quot;seq\&quot;:&quot;+String(seq)+&quot;,\&quot;soil_moisture\&quot;:20.0,\&quot;temperature\&quot;:25.0,\&quot;soil_ec\&quot;:2.8,\&quot;water_ph\&quot;:6.7}&quot;;
+  mqtt.beginMessage(TOPIC, (unsigned long)payload.length(), false, 1);
+  mqtt.print(payload);
+  if(mqtt.endMessage()){Serial.println(payload);seq++;}
+  else Serial.println(&quot;Publicación sin confirmar; verificar conexión&quot;);
+}
+</code></pre></details>
+<details><summary>aws/bootstrap.sh</summary><pre><code>#!/bin/bash
+set -euo pipefail
+cd /opt/smart-irrigation
+mountpoint -q /srv/iot-data || { echo &#x27;Falta montar EBS en /srv/iot-data&#x27;; exit 1; }
+mkdir -p /srv/iot-data/{mongodb,mosquitto}
+# No regenerar credenciales si ya existe una base inicializada.
+if [ ! -f .env ]; then
+  if [ -n &quot;$(ls -A /srv/iot-data/mongodb)&quot; ]; then echo &#x27;Base existente: restaure .env original antes de continuar&#x27;; exit 1; fi
+  umask 077
+  {
+    printf &#x27;APP_IMAGE=%s\n&#x27; &quot;$(cat app-image.txt)&quot;
+    printf &#x27;MONGO_ADMIN=admin\nAPP_DB_USER=iotapp\nMQTT_USER=worker\nMQTT_BIND=127.0.0.1\nMQTT_TLS=0\nCOMPOSE_FILE=compose.yaml:compose.aws.yaml\n&#x27;
+    for key in MONGO_ADMIN_PASSWORD APP_DB_PASSWORD MQTT_PASSWORD ARDUINO_MQTT_PASSWORD; do
+      printf &#x27;%s=%s\n&#x27; &quot;$key&quot; &quot;$(openssl rand -hex 24)&quot;
+    done
+  } &gt; .env
+fi
+chmod 600 .env
+install -m 644 aws/irrigation.service /etc/systemd/system/irrigation.service
+mkdir -p /etc/systemd/system/docker.service.d
+printf &quot;[Unit]\nRequiresMountsFor=/srv/iot-data\nConditionPathIsMountPoint=/srv/iot-data\n&quot; &gt; /etc/systemd/system/docker.service.d/iot-data.conf
+systemctl daemon-reload
+systemctl enable --now irrigation.service
+</code></pre></details>
+<details><summary>aws/image-builder.yaml</summary><pre><code>name: SmartIrrigationAMI
+schemaVersion: &quot;1.0&quot;
+description: Install Docker, pre-pull ECR image and verify telemetry.
+parameters:
+  - DeploymentUri:
+      type: string
+      default: &#x27;s3://REPLACE-BUCKET/irrigation-lab.zip&#x27;
+      description: S3 URI of release package
+  - AppImage:
+      type: string
+      default: &#x27;123456789012.dkr.ecr.us-east-1.amazonaws.com/smart-irrigation:1.0.0&#x27;
+      description: Immutable ECR tag or digest
+phases:
+  - name: build
+    steps:
+      - name: InstallRuntime
+        timeoutSeconds: 600
+        action: ExecuteBash
+        inputs:
+          commands:
+            - apt-get update
+            - apt-get install -y unzip
+            - mkdir -p /opt/smart-irrigation
+      - name: DownloadDeployment
+        action: S3Download
+        inputs:
+          - source: &#x27;{{ DeploymentUri }}&#x27;
+            destination: /tmp/irrigation-lab.zip
+      - name: PrepareAMI
+        timeoutSeconds: 1800
+        action: ExecuteBash
+        inputs:
+          commands:
+            - set -euo pipefail
+            - unzip -q /tmp/irrigation-lab.zip -d /opt/smart-irrigation
+            - cd /opt/smart-irrigation
+            - bash aws/install-runtime.sh
+            - printf &#x27;%s\n&#x27; &#x27;{{ AppImage }}&#x27; &gt; app-image.txt
+            - bash aws/pull-images.sh
+            - install -m 644 aws/irrigation.service /etc/systemd/system/irrigation.service
+            - systemctl enable irrigation.service
+            - rm /tmp/irrigation-lab.zip
+  - name: validate
+    steps:
+      - name: ValidateFiles
+        action: ExecuteBash
+        inputs:
+          commands:
+            - set -e
+            - docker compose version
+            - test -f /opt/smart-irrigation/compose.yaml
+            - test ! -e /opt/smart-irrigation/.env
+            - docker image inspect &quot;$(cat /opt/smart-irrigation/app-image.txt)&quot; &gt;/dev/null
+  - name: test
+    steps:
+      - name: VerifyTelemetry
+        timeoutSeconds: 600
+        action: ExecuteBash
+        inputs:
+          commands:
+            - bash /opt/smart-irrigation/aws/smoke.sh
+</code></pre></details>
+<details><summary>aws/install-runtime.sh</summary><pre><code>#!/bin/bash
+set -euo pipefail
+# Ubuntu 24.04 LTS x86_64, máquina nueva, ejecutar como root.
+apt-get update
+apt-get install -y ca-certificates curl unzip openssl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+. /etc/os-release
+cat &gt; /etc/apt/sources.list.d/docker.sources &lt;&lt;END
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: ${UBUNTU_CODENAME:-$VERSION_CODENAME}
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+END
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl enable --now docker
+if ! command -v aws &gt;/dev/null; then
+  tmp=$(mktemp -d)
+  curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o &quot;$tmp/aws.zip&quot;
+  unzip -q &quot;$tmp/aws.zip&quot; -d &quot;$tmp&quot;
+  &quot;$tmp/aws/install&quot;
+  rm -rf &quot;$tmp&quot;
+fi
+docker --version
+docker compose version
+aws --version
+</code></pre></details>
+<details><summary>aws/irrigation.service</summary><pre><code>[Unit]
+Description=Smart Irrigation IoT lab
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+RequiresMountsFor=/srv/iot-data
+ConditionPathIsMountPoint=/srv/iot-data
+ConditionPathExists=/opt/smart-irrigation/.env
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/smart-irrigation
+ExecStart=/usr/bin/docker compose up -d --pull never --wait --wait-timeout 180
+ExecStop=/usr/bin/docker compose stop
+TimeoutStartSec=240
+[Install]
+WantedBy=multi-user.target
+</code></pre></details>
+<details><summary>aws/pull-images.sh</summary><pre><code>#!/bin/bash
+set -euo pipefail
+cd /opt/smart-irrigation
+image=$(cat app-image.txt)
+registry=${image%%/*}
+region=$(cut -d. -f4 &lt;&lt;&lt; &quot;$registry&quot;)
+aws ecr get-login-password --region &quot;$region&quot; | docker login --username AWS --password-stdin &quot;$registry&quot;
+trap &#x27;docker logout &quot;$registry&quot; &gt;/dev/null 2&gt;&amp;1 || true&#x27; EXIT
+docker pull &quot;$image&quot;
+docker pull mongo:8.0
+docker pull eclipse-mosquitto:2
+</code></pre></details>
+<details><summary>aws/smoke.sh</summary><pre><code>#!/bin/bash
+set -euo pipefail
+cd /opt/smart-irrigation
+# Exclusivamente para una instancia de prueba desechable, NO producción.
+if [ -e .env ]; then echo &#x27;Existe .env; se cancela prueba destructiva&#x27;; exit 1; fi
+trap &#x27;docker compose down -v --remove-orphans; rm -f .env&#x27; EXIT
+cp .env.example .env
+sed -i &quot;s|^APP_IMAGE=.*|APP_IMAGE=$(cat app-image.txt)|&quot; .env
+docker compose up -d --pull never --wait --wait-timeout 180
+# Esperar la conexión del consumidor antes de publicar.
+for i in $(seq 1 40); do
+  if docker compose logs mqtt-worker | grep -q &#x27;Conectado; suscripción&#x27;; then break; fi
+  sleep 2
+done
+docker compose logs mqtt-worker | grep -q &#x27;Conectado; suscripción&#x27;
+sleep 3
+docker compose run --rm --no-deps simulator python simulator.py --once --boot awstoe
+for i in $(seq 1 30); do
+  if curl -fsS http://127.0.0.1:8080/api/latest | python3 -c &#x27;import json,sys; m=json.load(sys.stdin)[&quot;measurement&quot;]; assert m and m[&quot;boot_id&quot;]==&quot;awstoe&quot; and m[&quot;states&quot;][&quot;soil_moisture&quot;]==&quot;LOW&quot; and m[&quot;states&quot;][&quot;soil_ec&quot;]==&quot;HIGH&quot;&#x27;; then echo &#x27;SMOKE OK&#x27;; exit 0; fi
+  sleep 2
+done
+exit 1
+</code></pre></details>
+<details><summary>compose.aws.yaml</summary><pre><code>services:
+  mongodb:
+    volumes:
+      - /srv/iot-data/mongodb:/data/db
+  mosquitto:
+    volumes:
+      - /srv/iot-data/mosquitto:/mosquitto/data
+</code></pre></details>
+<details><summary>compose.tls.yaml</summary><pre><code>services:
+  mosquitto:
+    environment:
+      MQTT_TLS: &#x27;1&#x27;
+    ports:
+      - &#x27;8883:8883&#x27;
+    volumes:
+      - ./certs:/certs:ro
+</code></pre></details>
+<details><summary>compose.yaml</summary><pre><code>services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    entrypoint: [&quot;/bin/sh&quot;, &quot;/config/start.sh&quot;]
+    environment:
+      MQTT_USER: ${MQTT_USER:?missing}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:?missing}
+      ARDUINO_MQTT_PASSWORD: ${ARDUINO_MQTT_PASSWORD:?missing}
+      MQTT_TLS: ${MQTT_TLS:-0}
+    ports:
+      - &quot;${MQTT_BIND:-127.0.0.1}:1883:1883&quot;
+    volumes:
+      - ./mosquitto:/config:ro
+      - mqtt_data:/mosquitto/data
+    networks: [mqtt_net]
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;mosquitto_pub -h 127.0.0.1 -u arduino001 -P \&quot;$$ARDUINO_MQTT_PASSWORD\&quot; -t irrigation/uno-r4-001/status -m health -q 1&quot;]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+  mongodb:
+    image: mongo:8.0
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ADMIN:?missing}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ADMIN_PASSWORD:?missing}
+      APP_DB_USER: ${APP_DB_USER:?missing}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?missing}
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks: [db_net]
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;mongosh --quiet --host mongodb -u \&quot;$$APP_DB_USER\&quot; -p \&quot;$$APP_DB_PASSWORD\&quot; --authenticationDatabase irrigation --eval &#x27;db.adminCommand({ping:1}).ok&#x27; | grep -q 1&quot;]
+      interval: 10s
+      timeout: 8s
+      retries: 12
+      start_period: 30s
+  mqtt-worker:
+    image: ${APP_IMAGE:-irrigation:1.0.0}
+    restart: unless-stopped
+    command: [&quot;python&quot;, &quot;mqtt_worker.py&quot;]
+    environment:
+      APP_DB_USER: ${APP_DB_USER}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+      MQTT_USER: ${MQTT_USER}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+    depends_on:
+      mongodb: {condition: service_healthy}
+      mosquitto: {condition: service_healthy}
+    networks: [mqtt_net, db_net]
+  dashboard:
+    image: ${APP_IMAGE:-irrigation:1.0.0}
+    restart: unless-stopped
+    environment:
+      APP_DB_USER: ${APP_DB_USER}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+    ports: [&quot;127.0.0.1:8080:8000&quot;]
+    depends_on:
+      mongodb: {condition: service_healthy}
+    networks: [db_net, web_net]
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;python&quot;, &quot;-c&quot;, &quot;import urllib.request; urllib.request.urlopen(&#x27;http://127.0.0.1:8000/health&#x27;, timeout=3)&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+  simulator:
+    profiles: [tools]
+    image: ${APP_IMAGE:-irrigation:1.0.0}
+    command: [&quot;python&quot;, &quot;simulator.py&quot;]
+    environment:
+      ARDUINO_MQTT_PASSWORD: ${ARDUINO_MQTT_PASSWORD}
+    depends_on:
+      mosquitto: {condition: service_healthy}
+    networks: [mqtt_net]
+volumes:
+  mongo_data:
+  mqtt_data:
+networks:
+  mqtt_net:
+  db_net:
+    internal: true
+  web_net:
+</code></pre></details>
+<details><summary>mongo-init/init.js</summary><pre><code>const appdb = db.getSiblingDB(&#x27;irrigation&#x27;);
+appdb.createUser({user: process.env.APP_DB_USER, pwd: process.env.APP_DB_PASSWORD,
+  roles: [{role: &#x27;readWrite&#x27;, db: &#x27;irrigation&#x27;}]});
+appdb.measurements.createIndex({device_id: 1, timestamp: -1});
+</code></pre></details>
+<details><summary>mosquitto/acl</summary><pre><code>user arduino001
+topic write irrigation/uno-r4-001/telemetry
+topic write irrigation/uno-r4-001/status
+user worker
+topic read irrigation/+/telemetry
+topic read irrigation/+/status
+topic write irrigation/+/alarms
+</code></pre></details>
+<details><summary>mosquitto/mosquitto.conf</summary><pre><code>listener 1883
+allow_anonymous false
+password_file /tmp/passwords
+acl_file /config/acl
+persistence true
+persistence_location /mosquitto/data/
+autosave_interval 30
+log_dest stdout
+</code></pre></details>
+<details><summary>mosquitto/start.sh</summary><pre><code>#!/bin/sh
+set -eu
+# Ejecutado como root inicialmente; mosquitto baja privilegios al usuario mosquitto.
+mkdir -p /mosquitto/data
+chown mosquitto:mosquitto /mosquitto/data
+mosquitto_passwd -b -c /tmp/passwords arduino001 &quot;$ARDUINO_MQTT_PASSWORD&quot;
+mosquitto_passwd -b /tmp/passwords &quot;$MQTT_USER&quot; &quot;$MQTT_PASSWORD&quot;
+chown mosquitto:mosquitto /tmp/passwords
+chmod 600 /tmp/passwords
+cp /config/mosquitto.conf /tmp/broker.conf
+if [ &quot;$MQTT_TLS&quot; = 1 ]; then
+  cat /config/tls.conf &gt;&gt; /tmp/broker.conf
+fi
+exec mosquitto -c /tmp/broker.conf
+</code></pre></details>
+<details><summary>mosquitto/tls.conf</summary><pre><code>
+listener 8883
+certfile /certs/fullchain.pem
+keyfile /certs/privkey.pem
+require_certificate false
+tls_version tlsv1.2
+</code></pre></details>
+<details><summary>requirements.txt</summary><pre><code>Flask==3.1.2
+gunicorn==23.0.0
+paho-mqtt==2.1.0
+pymongo==4.15.3
+</code></pre></details>
+<details><summary>tests/test_alarm.py</summary><pre><code>import unittest,copy
+from alarm_engine import state,DEFAULTS,validate_rules,evaluate
+class TestAlarm(unittest.TestCase):
+    def test_hysteresis(self):
+        r=DEFAULTS[&#x27;soil_moisture&#x27;]
+        self.assertEqual(state(24,r),&#x27;LOW&#x27;); self.assertEqual(state(25,r,&#x27;LOW&#x27;),&#x27;LOW&#x27;); self.assertEqual(state(28,r,&#x27;LOW&#x27;),&#x27;NORMAL&#x27;)
+    def test_high(self):
+        r=DEFAULTS[&#x27;soil_moisture&#x27;]; self.assertEqual(state(66,r),&#x27;HIGH&#x27;); self.assertEqual(state(63,r,&#x27;HIGH&#x27;),&#x27;HIGH&#x27;); self.assertEqual(state(62,r,&#x27;HIGH&#x27;),&#x27;NORMAL&#x27;); self.assertEqual(state(20,r,&#x27;HIGH&#x27;),&#x27;LOW&#x27;)
+    def test_invalid(self):
+        r=copy.deepcopy(DEFAULTS); r[&#x27;water_ph&#x27;][&#x27;min&#x27;]=9
+        with self.assertRaises(ValueError): validate_rules(r)
+    def test_events(self):
+        s,e=evaluate({&#x27;soil_moisture&#x27;:20},DEFAULTS,{}); self.assertEqual(s[&#x27;soil_moisture&#x27;],&#x27;LOW&#x27;); self.assertEqual(len(e),1)
+        self.assertEqual(evaluate({&#x27;soil_moisture&#x27;:20},DEFAULTS,s)[1],[])
+    def test_disabled(self):
+        r=dict(DEFAULTS[&#x27;soil_moisture&#x27;],enabled=False); self.assertEqual(state(5,r,&#x27;LOW&#x27;),&#x27;DISABLED&#x27;)
+if __name__==&#x27;__main__&#x27;: unittest.main()
+</code></pre></details>
+</div></section><section id="refs"><div class="tag">16 / Fuentes y verificación</div><h2>Documentación oficial</h2><p>Se consultaron documentos oficiales de Docker, AWS y Arduino para contrastar instalación, ECR, Image Builder, roles de instancia, componente AWSTOE y uso de MQTT. Los enlaces permiten verificar cambios de interfaz y requisitos. Los comandos de implementación específicos del laboratorio deben validarse con los controles de aceptación; no son comandos certificados por los fabricantes.</p><ul><li><a href="https://docs.docker.com/compose/install/">Docker Compose: instalación</a> · <a href="https://docs.docker.com/desktop/setup/install/windows-install/">Windows</a> · <a href="https://docs.docker.com/desktop/setup/install/mac-install/">Mac</a> · <a href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu</a> · <a href="https://docs.docker.com/desktop/features/wsl/">WSL2</a></li><li><a href="https://docs.docker.com/compose/how-tos/startup-order/">Compose: orden de arranque y health checks</a> · <a href="https://docs.docker.com/engine/network/packet-filtering-firewalls/">Docker y firewall</a></li><li><a href="https://docs.arduino.cc/tutorials/uno-r4-wifi/cheat-sheet/">Arduino UNO R4 WiFi</a> · <a href="https://github.com/arduino-libraries/ArduinoMqttClient">ArduinoMqttClient</a></li><li><a href="https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html">Paho MQTT Python</a> · <a href="https://mosquitto.org/man/mosquitto-conf-5.html">Mosquitto config</a></li><li><a href="https://hub.docker.com/_/mongo">Imagen oficial MongoDB</a> · <a href="https://www.mongodb.com/docs/manual/">Manual MongoDB</a> · <a href="https://flask.palletsprojects.com/">Flask</a></li><li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html">ECR: push</a> · <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html">CLI v2</a></li><li><a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/ami-image-pipelines.html">Image Builder: pipelines AMI</a> · <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/set-up-ib-env.html">requisitos IAM</a> · <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/toe-use-documents.html">AWSTOE: documentos YAML</a> · <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/manage-components.html">componentes</a></li><li><a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-using-volumes.html">EBS: utilizar volúmenes</a> · <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html">Session Manager</a></li><li><a href="https://eff-certbot.readthedocs.io/en/stable/using.html">Certbot</a> · <a href="https://docs.github.com/en/pages">GitHub Pages</a></li></ul><h3>Conclusión para el estudiante</h3><p>Al finalizar deberá poder explicar la diferencia entre MQTT y HTTP, imagen y contenedor, red y puerto publicado, base de datos y volumen, ECR y AMI, así como por qué Image Builder automatiza la construcción del servidor pero no debe capturar los datos ni secretos de operación. Las etapas propuestas son una base extensible para incorporar múltiples dispositivos, retención, métricas, reglas multivariables y decisiones de control verificadas.</p></section></main></div><footer>SMART IRRIGATION · Guía docente de referencia · Edición 1.0 · noviembre 2026</footer>
+<script id="zip-data" type="application/octet-stream">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</script><script>
+const buttons=document.querySelectorAll('#os-buttons button');buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('.os').forEach(x=>x.hidden=b.dataset.os!=='all'&&!x.dataset.platform.split(' ').includes(b.dataset.os));}));
+document.querySelectorAll('pre').forEach(pre=>{let wrap=document.createElement('div');wrap.className='codewrap';pre.replaceWith(wrap);wrap.append(pre);let b=document.createElement('button');b.className='copy';b.textContent='Copiar';b.type='button';b.onclick=async()=>{let t=pre.innerText;try{await navigator.clipboard.writeText(t);b.textContent='Copiado'}catch(e){let a=document.createElement('textarea');a.value=t;wrap.append(a);a.select();let ok=document.execCommand('copy');a.remove();b.textContent=ok?'Copiado':'Seleccione el texto'}setTimeout(()=>b.textContent='Copiar',1700)};wrap.append(b)});
+document.getElementById('download').onclick=()=>{let s=atob(document.getElementById('zip-data').textContent.trim()),a=new Uint8Array(s.length);for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i);let u=URL.createObjectURL(new Blob([a],{type:'application/zip'}));let link=document.createElement('a');link.href=u;link.download='irrigation-lab.zip';link.click();setTimeout(()=>URL.revokeObjectURL(u),2000)};
+const tests=['Docker hello-world y Compose disponibles','Imagen Python construida localmente','Cuatro servicios ejecutándose y /health correcto','Mensaje MQTT determinista almacenado','Gráficas e histórico correctos','Umbrales, histéresis y decisiones verificados','Duplicados y persistencia local comprobados','Arduino sintético conectado en LAN (si disponible)','ECR: imagen amd64 publicada y digest registrado','S3 privado, IAM y Security Groups verificados','EC2: disco EBS montado, bootstrap y túnel funcionando','Image Builder: AMI disponible y test MQTT exitoso','Nueva instancia AMI: datos y arranque verificados','MQTT TLS validado con cliente y placa (si aplica)','Recursos AWS innecesarios eliminados'];let state={};try{state=JSON.parse(localStorage.getItem('irrigation-lab-checklist')||'{}')}catch(e){};let root=document.getElementById('checklist');function update(){document.getElementById('progress').textContent=Object.values(state).filter(Boolean).length+' / '+tests.length+' controles marcados';try{localStorage.setItem('irrigation-lab-checklist',JSON.stringify(state))}catch(e){}}tests.forEach((t,i)=>{let l=document.createElement('label'),c=document.createElement('input');c.type='checkbox';c.checked=!!state[i];c.onchange=()=>{state[i]=c.checked;update()};l.append(c,document.createTextNode(t));root.append(l)});document.getElementById('reset').onclick=()=>{state={};root.querySelectorAll('input').forEach(x=>x.checked=false);update()};update();
+</script></body></html>
