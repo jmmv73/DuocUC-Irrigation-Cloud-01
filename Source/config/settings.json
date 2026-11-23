@@ -1,0 +1,46 @@
+{
+  "public_host": "YOUR_DROPLET_IP",
+  "device_id": "uno01",
+  "dashboard": {
+    "title": "Smart Irrigation | IoT Laboratory",
+    "port": 8080,
+    "refresh_ms": 5000,
+    "history_hours": 24,
+    "max_graph_points": 2500
+  },
+  "mqtt": {
+    "port": 1883,
+    "topics": {
+      "telemetry": "riego/uno01/telemetry",
+      "alarms": "riego/uno01/alarms",
+      "thresholds": "riego/uno01/thresholds"
+    }
+  },
+  "alarm": {
+    "stale_seconds": 90,
+    "check_interval_seconds": 10,
+    "thresholds": {
+      "soil_moisture": {
+        "min": 30,
+        "max": 80
+      },
+      "temperature": {
+        "min": 15,
+        "max": 32
+      },
+      "soil_ec": {
+        "min": 0.5,
+        "max": 2.5
+      },
+      "water_ph": {
+        "min": 5.5,
+        "max": 7.5
+      }
+    }
+  },
+  "simulator": {
+    "mode": "cycle",
+    "interval_seconds": 5,
+    "samples": 15
+  }
+}
