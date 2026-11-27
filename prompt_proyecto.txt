@@ -1,0 +1,18 @@
+eres un experto en iot, digitalocean, docker, python, mqtt
+
+se requiere construir un dashboard con su base de datos para capturar información proveniente de un arduino uno r4 wifi via mqtt. Son 4 sensores para condiciones de riego de plantas: humedad de suelo, temperatura, conductividad de suelo y pH del agua con que se riega. 
+Además del dashboard, quisiera tener la posibilidad de setear alarmas (de máximos y mínimos), como una forma de emular la toma de decisiones, de tal forma que via MQTT se informen estas alarmas al arduino para encender algun led o indicar alog en un display.
+
+el proyecto arduino r4 wifi, está anexado a este chat.
+
+Cuales son los pasos para construir al menos 3 contenedores docker que tengan ese dashboard, base de datos historica, broker MQTT, habilitacion de puertos. Todo usando python y mongodb.
+
+Otras consideraciones:
+- Acceso al dashboard a traves de http (no ssl). es solo un prototipo funcional
+- droplet de digitalocean tiene acceso solo con clave root. se puede conectar desde cualquier lado
+- Usar un archivo de configuracion para el seteo de mqtt y topicos de dashbpard
+- usar mqtt no seguro (sin ssl). es un solo un prototipo
+- generar un archivo zip con el proyecto
+- generar una guia paso a paso para instalacion, configuracion, y puesta en marcha
+- detalla los conceptos fundamentales en la guia
+- la guia debe ser en formato pdf
